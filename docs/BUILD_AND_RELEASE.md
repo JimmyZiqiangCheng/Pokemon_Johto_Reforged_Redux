@@ -41,12 +41,12 @@ only.
 
 ## Current Release
 
-`release/Pokemon-JohtoReforged-v0.1.4-save-text-restore/`
+`release/Pokemon-JohtoReforged-v0.1.5-qol-text-remap/`
 
 - Patched ROM SHA-256:
-  `C2A31166F2D151D6C81442582C4A77C9282EBD252FD075D3FD8B374C1DA6A2C4`
+  `858041E9BB724FAC145B82C19E5312080982598CCAF22EA4F99DD55F10D18D84`
 - Xdelta SHA-256:
-  `D4CDFD6CE0D77702F5046A542996497AF8CA939B281727340D956B1691C4E584`
+  `96246EB08FB57CFDA6FCBC8DA3E8483035EC1966A85282F0470AADA5DFAB5A63`
 - Patch verification: xdelta rebuild from the clean ROM matched the packaged
   patched ROM hash.
 
@@ -59,4 +59,5 @@ After each phase 1 build, run:
 This checks that deferred summary UI, nature stat, party menu, party item-use,
 and wild post-processing hook sites match clean HeartGold bytes. It also checks
 that fragile save screen, battle command, move PP, party menu, and summary
-screen text IDs remain aligned to clean HeartGold entries.
+screen text IDs remain aligned to clean HeartGold entries, and that the common
+script uses appended bank 40 IDs for reusable Repels.

@@ -118,7 +118,7 @@ _0175:
     end
 
 _019B:
-    npc_msg 3
+    npc_msg 6
     wait_button_or_walk_away
     touchscreen_menu_show
     closemsg
@@ -150,11 +150,11 @@ _01C9:
     goto _023A
 
 _020C:
-    npc_msg 1
+    npc_msg 2
     return
 
 _0211:
-    npc_msg 7
+    npc_msg 14
     return
 
 _0216:
@@ -171,7 +171,7 @@ _0216:
 _023A:
     compare VAR_SPECIAL_x8004, 1
     goto_if_eq _02CB
-    npc_msg 2
+    npc_msg 4
     apply_movement obj_player, _0468
     wait_movement
     get_player_state VAR_SPECIAL_RESULT
@@ -196,11 +196,11 @@ _0273:
     fade_screen 6, 1, 1, RGB_BLACK
     wait_fade
     bufferpartymonnick 0, VAR_SPECIAL_x8009
-    npc_msg 102
+    npc_msg 204
 _02B2:
     apply_movement VAR_SPECIAL_x8007, _0454
     wait_movement
-    npc_msg 3
+    npc_msg 6
     wait_button_or_walk_away
     closemsg
     touchscreen_menu_show
@@ -209,7 +209,7 @@ _02B2:
     end
 
 _02CB:
-    npc_msg 8
+    npc_msg 16
     apply_movement obj_player, _0468
     wait_movement
     get_player_state VAR_SPECIAL_RESULT
@@ -234,11 +234,11 @@ _02F7:
     fade_screen 6, 1, 1, RGB_BLACK
     wait_fade
     bufferpartymonnick 0, VAR_SPECIAL_x8009
-    npc_msg 102
+    npc_msg 204
 _0336:
     apply_movement VAR_SPECIAL_x8007, _0454
     wait_movement
-    npc_msg 9
+    npc_msg 18
     wait_button_or_walk_away
     closemsg
     releaseall
@@ -278,9 +278,9 @@ _0395:
     fade_screen 6, 1, 1, RGB_BLACK
     wait_fade
     bufferpartymonnick 0, VAR_SPECIAL_x8009
-    npc_msg 102
+    npc_msg 204
 _03D4:
-    npc_msg 10
+    npc_msg 20
     wait_button_or_walk_away
     closemsg
     touchscreen_menu_show
@@ -291,15 +291,15 @@ _03D4:
 _03E3:
     goto_if_set FLAG_NURSE_NOTICED_TRAINER_CARD, _041D
     setflag FLAG_NURSE_NOTICED_TRAINER_CARD
-    npc_msg 4
+    npc_msg 8
     buffer_players_name 0
-    npc_msg 5
+    npc_msg 10
     touchscreen_menu_hide
     getmenuchoice VAR_SPECIAL_RESULT
     touchscreen_menu_show
     compare VAR_SPECIAL_RESULT, 0
     goto_if_eq _0445
-    npc_msg 9
+    npc_msg 18
     wait_button_or_walk_away
     closemsg
     releaseall
@@ -308,13 +308,13 @@ _03E3:
 
 _041D:
     buffer_players_name 0
-    npc_msg 6
+    npc_msg 12
     touchscreen_menu_hide
     getmenuchoice VAR_SPECIAL_RESULT
     touchscreen_menu_show
     compare VAR_SPECIAL_RESULT, 0
     goto_if_eq _0445
-    npc_msg 9
+    npc_msg 18
     wait_button_or_walk_away
     closemsg
     releaseall
@@ -421,7 +421,7 @@ _0592:
     compare VAR_SPECIAL_RESULT, 0
     goto_if_eq _05AD
     bufferpartymonnick 0, VAR_SPECIAL_x8005
-    npc_msg 53
+    npc_msg 106
 _05AD:
     addvar VAR_SPECIAL_x8005, 1
     compare VAR_SPECIAL_x8004, VAR_SPECIAL_x8005
@@ -443,7 +443,7 @@ scr_seq_0003_004:
 
 _05F5:
     buffer_players_name 0
-    npc_msg 11
+    npc_msg 22
     wait_button
     closemsg
     fade_out_bgm 0, 10
@@ -461,7 +461,7 @@ scr_seq_0003_005:
     end
 
 scr_seq_0003_024:
-    npc_msg 20
+    npc_msg 40
     wait_button
     closemsg
     end
@@ -475,7 +475,7 @@ scr_seq_0003_006:
 
 _0646:
     show_save_stats
-    npc_msg 13
+    npc_msg 26
     touchscreen_menu_hide
     getmenuchoice VAR_SPECIAL_RESULT
     compare VAR_SPECIAL_RESULT, 1
@@ -494,22 +494,22 @@ _0646:
 _0698:
     hide_save_stats
     touchscreen_menu_show
-    npc_msg 20
+    npc_msg 40
     wait_button
     setvar VAR_SPECIAL_RESULT, 0
     return
 
 _06A9:
-    npc_msg 14
+    npc_msg 28
     getmenuchoice VAR_SPECIAL_RESULT
     compare VAR_SPECIAL_RESULT, 1
     goto_if_eq _0740
 _06BD:
-    npc_msg 21
+    npc_msg 42
     goto _06F2
 
 _06C6:
-    npc_msg 14
+    npc_msg 28
     getmenuchoice VAR_SPECIAL_RESULT
     compare VAR_SPECIAL_RESULT, 1
     goto_if_eq _0740
@@ -535,7 +535,7 @@ _071D:
     compare VAR_SPECIAL_RESULT, 0
     goto_if_eq _074C
     buffer_players_name 0
-    npc_msg 16
+    npc_msg 32
     play_se SEQ_SE_DP_SAVE
     wait_se SEQ_SE_DP_SAVE
     wait_button_or_delay 30
@@ -549,14 +549,14 @@ _0740:
     return
 
 _074C:
-    npc_msg 18
+    npc_msg 36
     wait_button
     hide_save_stats
     touchscreen_menu_show
     return
 
 _0757:
-    npc_msg 21
+    npc_msg 42
     goto _06F2
     .byte 0x02, 0x00
 _0762:
@@ -565,7 +565,7 @@ _0762:
     return
 
 _076A:
-    npc_msg 15
+    npc_msg 30
     goto _06F2
     .byte 0x02, 0x00
 _0775:
@@ -576,14 +576,14 @@ _0775:
     .byte 0x02, 0x00
 scr_seq_0003_007:
     call _07AA
-    npc_msg 32
+    npc_msg 64
     wait_button
     endstd
     end
 
 scr_seq_0003_035:
     call _07AA
-    npc_msg 90
+    npc_msg 180
     endstd
     end
 
@@ -591,7 +591,7 @@ _07AA:
     play_fanfare SEQ_ME_ACCE
     scrcmd_403 VAR_SPECIAL_x8004, VAR_SPECIAL_x8005
     buffer_fashion_name 0, VAR_SPECIAL_x8004
-    npc_msg 25
+    npc_msg 50
     wait_fanfare
     buffer_players_name 0
     buffer_fashion_name 1, VAR_SPECIAL_x8004
@@ -599,14 +599,14 @@ _07AA:
 
 scr_seq_0003_026:
     call _07E4
-    npc_msg 32
+    npc_msg 64
     wait_button
     endstd
     end
 
 scr_seq_0003_034:
     call _07E4
-    npc_msg 90
+    npc_msg 180
     endstd
     end
 
@@ -614,7 +614,7 @@ _07E4:
     play_fanfare SEQ_ME_ACCE
     scrcmd_406 VAR_SPECIAL_x8004
     buffer_background_name 0, VAR_SPECIAL_x8004
-    npc_msg 25
+    npc_msg 50
     wait_fanfare
     buffer_players_name 0
     buffer_background_name 1, VAR_SPECIAL_x8004
@@ -635,11 +635,11 @@ _080A:
     call_if_ne _08A3
     compare VAR_SPECIAL_x8005, 1
     goto_if_gt _084E
-    npc_msg 30
+    npc_msg 60
     goto _0851
 
 _084E:
-    npc_msg 31
+    npc_msg 60
 _0851:
     wait_button_or_walk_away
     return
@@ -657,13 +657,13 @@ _085F:
     call_if_eq _0892
     compare VAR_SPECIAL_RESULT, 7
     call_if_ne _08A3
-    npc_msg 89
+    npc_msg 178
     return
 
 _0892:
     buffer_players_name 0
     buffer_item_name_indef 1, VAR_SPECIAL_x8004
-    npc_msg 28
+    npc_msg 56
     goto _08C9
 
 _08A3:
@@ -675,7 +675,7 @@ _08A3:
 _08BB:
     buffer_item_name_plural 0, VAR_SPECIAL_x8004
 _08C0:
-    npc_msg 25
+    npc_msg 50
     goto _08C9
 
 _08C9:
@@ -750,7 +750,7 @@ scr_seq_0003_009:
     end
 
 _09F5:
-    npc_msg 27
+    npc_msg 54
     wait_button_or_walk_away
     return
 
@@ -760,7 +760,7 @@ scr_seq_0003_010:
     play_se SEQ_SE_DP_PC_ON
     call _0A18
     buffer_players_name 0
-    npc_msg 33
+    npc_msg 66
     touchscreen_menu_hide
     goto _0A2E
 
@@ -778,7 +778,7 @@ _0A23:
 
 _0A2E:
     buffer_players_name 0
-    npc_msg 34
+    npc_msg 68
     menu_init_std_gmm 1, 1, 0, 1, VAR_SPECIAL_x8006
     call_if_unset FLAG_SYS_MET_BILL, _0A78
     call_if_set FLAG_SYS_MET_BILL, _0A82
@@ -816,7 +816,7 @@ _0AD1:
 _0B01:
     play_se SEQ_SE_DP_PC_LOGIN
     buffer_players_name 0
-    npc_msg 35
+    npc_msg 70
     call _0B17
     goto _0B53
 
@@ -877,7 +877,7 @@ _0BEE:
 
 _0C01:
     buffer_players_name 0
-    non_npc_msg 34
+    non_npc_msg 68
     call _0B17
     call _0A18
     fade_screen 6, 1, 1, RGB_BLACK
@@ -886,7 +886,7 @@ _0C01:
 _0C23:
     play_se SEQ_SE_DP_PC_LOGIN
     buffer_players_name 0
-    npc_msg 36
+    npc_msg 72
     goto _0C33
 
 _0C33:
@@ -935,12 +935,12 @@ _0CEC:
     goto _0D18
 
 _0D0F:
-    npc_msg 47
+    npc_msg 94
     goto _0C33
 
 _0D18:
     buffer_players_name 0
-    non_npc_msg 34
+    non_npc_msg 68
     call _0CA7
     call _0A18
     fade_screen 6, 1, 1, RGB_BLACK
@@ -956,12 +956,12 @@ _0D3A:
     goto _0D64
 
 _0D5B:
-    npc_msg 79
+    npc_msg 158
     goto _0C33
 
 _0D64:
     buffer_players_name 0
-    non_npc_msg 34
+    non_npc_msg 68
     call _0CA7
     call _0A18
     fade_screen 6, 1, 1, RGB_BLACK
@@ -976,7 +976,7 @@ _0D86:
 
 _0D98:
     buffer_players_name 0
-    non_npc_msg 34
+    non_npc_msg 68
     call _0CA7
     call _0A18
     fade_screen 6, 1, 1, RGB_BLACK
@@ -995,7 +995,7 @@ _0DBA:
     goto _0A2E
 
 _0DE7:
-    npc_msg 94
+    npc_msg 188
     goto _0A2E
 
 _0DF0:
@@ -1027,7 +1027,7 @@ scr_seq_0003_014:
     end
 
 scr_seq_0003_011:
-    npc_msg 38
+    npc_msg 76
     endstd
     end
 
@@ -1040,7 +1040,7 @@ scr_seq_0003_012:
     fade_screen 6, 1, 1, RGB_BLACK
     wait_fade
     buffer_players_name 0
-    npc_msg 41
+    npc_msg 82
     fade_screen 6, 1, 0, RGB_BLACK
     wait_fade
     closemsg
@@ -1049,7 +1049,7 @@ scr_seq_0003_012:
     heal_party
     fade_screen 6, 1, 1, RGB_BLACK
     wait_fade
-    npc_msg 42
+    npc_msg 84
     wait_button_or_walk_away
     closemsg
     releaseall
@@ -1073,13 +1073,13 @@ _0ED8:
     update_avatar_state
     apply_movement obj_player, _0460
     wait_movement
-    npc_msg 44
+    npc_msg 88
     call _0F89
     call _0216
     check_badge BADGE_ZEPHYR, VAR_SPECIAL_RESULT
     compare VAR_SPECIAL_RESULT, 1
     goto_if_eq _0F49
-    npc_msg 45
+    npc_msg 90
     apply_movement obj_player, _0468
     wait_movement
     get_player_state VAR_SPECIAL_RESULT
@@ -1094,7 +1094,7 @@ _0F32:
     update_avatar_state
     apply_movement VAR_SPECIAL_x8007, _0454
     wait_movement
-    npc_msg 46
+    npc_msg 92
     wait_button_or_walk_away
     closemsg
     releaseall
@@ -1115,7 +1115,7 @@ _0F72:
     update_avatar_state
     apply_movement VAR_SPECIAL_x8007, _0454
     wait_movement
-    npc_msg 40
+    npc_msg 80
     wait_button_or_walk_away
     closemsg
     releaseall
@@ -1224,15 +1224,15 @@ scr_seq_0003_016:
     end
 
 scr_seq_0003_017:
-    simple_npc_msg 54
+    simple_npc_msg 108
     end
 
 scr_seq_0003_018:
-    simple_npc_msg 57
+    simple_npc_msg 114
     end
 
 scr_seq_0003_019:
-    simple_npc_msg 58
+    simple_npc_msg 116
     end
 
 scr_seq_0003_020:
@@ -1245,7 +1245,7 @@ scr_seq_0003_020:
     player_on_bike_check VAR_SPECIAL_RESULT
     compare VAR_SPECIAL_RESULT, 1
     goto_if_eq _1140
-    npc_msg 59
+    npc_msg 118
     yesno VAR_SPECIAL_RESULT
     compare VAR_SPECIAL_RESULT, 1
     goto_if_eq _115D
@@ -1255,7 +1255,7 @@ scr_seq_0003_020:
     end
 
 _1140:
-    npc_msg 60
+    npc_msg 120
     yesno VAR_SPECIAL_RESULT
     compare VAR_SPECIAL_RESULT, 1
     goto_if_eq _115D
@@ -1275,7 +1275,7 @@ _1163:
 scr_seq_0003_021:
     play_se SEQ_SE_DP_SELECT
     lockall
-    npc_msg 62
+    npc_msg 124
     wait_button
     fade_screen 6, 1, 0, RGB_BLACK
     wait_fade
@@ -1289,7 +1289,7 @@ scr_seq_0003_021:
 scr_seq_0003_022:
     play_se SEQ_SE_DP_SELECT
     lockall
-    npc_msg 65
+    npc_msg 130
     wait_button
     closemsg
     releaseall
@@ -1298,7 +1298,7 @@ scr_seq_0003_022:
 scr_seq_0003_072_repels:
     play_se SEQ_SE_DP_SELECT
     lockall
-    npc_msg 118
+    npc_msg 234
     yesno VAR_SPECIAL_RESULT
     compare VAR_SPECIAL_RESULT, 1
     goto_if_eq scr_seq_0003_072_end
@@ -1306,7 +1306,7 @@ scr_seq_0003_072_repels:
     PlayFanfare SEQ_SE_DP_CARD2
     buffer_players_name 0
     buffer_item_name 1, VAR_SPECIAL_RESULT
-    npc_msg 119
+    npc_msg 236
     wait_button_or_walk_away
 scr_seq_0003_072_end:
     closemsg
@@ -1317,7 +1317,7 @@ scr_seq_0003_023:
     play_se SEQ_SE_DP_SELECT
     lockall
     faceplayer
-    npc_msg 103
+    npc_msg 206
     touchscreen_menu_hide
 _11AE:
     menu_init 1, 1, 0, 1, VAR_SPECIAL_RESULT
@@ -1343,18 +1343,18 @@ _11AE:
     wait_fade
     compare VAR_SPECIAL_RESULT, 0
     goto_if_eq _1277
-    npc_msg 109
+    npc_msg 218
     getmenuchoice VAR_SPECIAL_RESULT
     compare VAR_SPECIAL_RESULT, 0
     goto_if_eq _11AE
     compare VAR_SPECIAL_x8001, 65535
     goto_if_eq _126A
     scrcmd_494 0, VAR_SPECIAL_x8001
-    npc_msg 111
+    npc_msg 222
     goto _126D
 
 _126A:
-    npc_msg 110
+    npc_msg 220
 _126D:
     wait_button_or_walk_away
     closemsg
@@ -1363,11 +1363,11 @@ _126D:
     end
 
 _1277:
-    npc_msg 108
+    npc_msg 216
     goto _126D
     .byte 0x02, 0x00
 scr_seq_0003_025:
-    simple_npc_msg 68
+    simple_npc_msg 136
     end
 
 scr_seq_0003_027:
@@ -1504,7 +1504,7 @@ _13F6:
     end
 
 scr_seq_0003_041:
-    npc_msg 93
+    npc_msg 186
     wait_button_or_walk_away
     closemsg
     releaseall
@@ -1721,12 +1721,12 @@ scr_seq_0003_064:
     lockall
     scrcmd_727 VAR_SPECIAL_x8005
     bufferpartymonnick 0, VAR_SPECIAL_x8005
-    npc_msg 99
+    npc_msg 198
     closemsg
     scrcmd_806
     scrcmd_727 VAR_SPECIAL_x8005
     bufferpartymonnick 0, VAR_SPECIAL_x8005
-    npc_msg 100
+    npc_msg 200
     wait_button
     closemsg
     releaseall
@@ -1735,7 +1735,7 @@ scr_seq_0003_064:
 scr_seq_0003_073_autobattle_testing:
     play_se SEQ_SE_DP_SELECT
     lockall
-    npc_msg 120
+    npc_msg 238
     closemsg
     trainer_battle 1, 0, 0, 0
     releaseall

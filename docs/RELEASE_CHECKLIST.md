@@ -13,7 +13,9 @@
 - Confirm `hg-engine-main/test.nds` is produced.
 - Run `python tools\johto_reforged\validate_phase1_stable_hooks.py` for phase 1
   releases, including save screen, battle command, move PP, party menu, and
-  summary screen text ID checks.
+  summary screen text ID checks plus reusable Repel common-script text remaps.
+- Decode rebuilt text archives 40, 197, 300, and 302 when changing any text or
+  script message IDs.
 - Generate a versioned release folder under `release/`.
 - Generate an xdelta patch from the clean ROM to the patched ROM.
 - Generate `SHA256SUMS.txt`.

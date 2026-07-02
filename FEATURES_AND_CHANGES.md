@@ -1,6 +1,6 @@
 # Pokemon Johto Reforged - Features and Changes
 
-Document version: v2026.07.02-save-text-restore
+Document version: v2026.07.02-qol-text-remap
 Last updated: 2026-07-02
 
 This project restarts Pokemon Johto Reforged from a smaller, safer baseline.
@@ -21,7 +21,7 @@ will be reintroduced one phase at a time with a build and release at each step.
 
 | Phase | Scope | Status |
 | --- | --- | --- |
-| 1 | Initial HG-engine build with important low-risk QOL toggles only | Complete in `v0.1.4-save-text-restore` |
+| 1 | Initial HG-engine build with important low-risk QOL toggles only | Complete in `v0.1.5-qol-text-remap` |
 | 2 | Pokemon stats, ability, move, and typing changes | Planned |
 | 3 | Wild encounter table changes | Planned |
 | 4 | Trainer updates | Planned |
@@ -70,19 +70,20 @@ Deferred from phase 1:
 
 ## Current Release
 
-- Version: `v0.1.4-save-text-restore`
-- Folder: `release/Pokemon-JohtoReforged-v0.1.4-save-text-restore/`
+- Version: `v0.1.5-qol-text-remap`
+- Folder: `release/Pokemon-JohtoReforged-v0.1.5-qol-text-remap/`
 - Clean ROM SHA-256:
   `65F02A56842B75AA92D775D56D657A56FE3FA993550B04DC20704AB82D760105`
 - Patched ROM SHA-256:
-  `C2A31166F2D151D6C81442582C4A77C9282EBD252FD075D3FD8B374C1DA6A2C4`
+  `858041E9BB724FAC145B82C19E5312080982598CCAF22EA4F99DD55F10D18D84`
 - Xdelta SHA-256:
-  `D4CDFD6CE0D77702F5046A542996497AF8CA939B281727340D956B1691C4E584`
+  `96246EB08FB57CFDA6FCBC8DA3E8483035EC1966A85282F0470AADA5DFAB5A63`
 
 ## Release History
 
 | Version | Notes |
 | --- | --- |
+| `v0.1.5-qol-text-remap` | Supersedes `v0.1.4`; reintroduces reusable Repel prompt text by appending clean bank 40 entries at IDs 234 and 236, then remapping the common script to those appended IDs. Keeps save, battle, party, and summary UI text IDs stable. |
 | `v0.1.4-save-text-restore` | Supersedes `v0.1.3`; restores clean HeartGold save/general text archive IDs after HG-engine text changes shifted bank 40, causing the save prompt to display the Hall of Fame corruption warning. Adds validation for those IDs. |
 | `v0.1.3-battle-text-restore` | Supersedes `v0.1.2`; restores clean HeartGold battle text archive IDs for battle command, move PP, and Safari labels after HG-engine text changes shifted bank 197. Adds validation for those IDs. |
 | `v0.1.2-text-restore` | Supersedes `v0.1.1`; restores clean HeartGold text archive IDs for party menu and summary screen labels after HG-engine-added text shifted entries 300 and 302. Adds validation for those fragile IDs. |

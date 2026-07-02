@@ -39,3 +39,8 @@ code reads the expected labels. Battle text archive 197 must also preserve
 clean HeartGold IDs for the command menu and move PP labels. Save/general text
 archive 40 must preserve clean HeartGold IDs for the save prompt and Hall of
 Fame warning.
+
+Reusable Repels are the exception that still needs new text in phase 1. The
+Repel prompt is appended to bank 40 at message ID 234 and the "used" message is
+appended at ID 236. The common script is remapped to those appended IDs, so no
+vanilla save-screen IDs shift.

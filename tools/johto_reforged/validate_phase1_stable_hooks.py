@@ -4,6 +4,7 @@
 from __future__ import annotations
 
 import argparse
+import re
 import struct
 import sys
 from pathlib import Path
@@ -73,6 +74,9 @@ TEXT_EXPECTED = {
         (162, "Would you like to save the game?", "save screen prompt"),
         (164, "There is already a saved file.\\nIs it OK to overwrite it?", "save screen overwrite prompt"),
         (188, "Your Hall of Fame data is corrupted.\\rIt will be fixed if you enter the\\nHall of Fame again.\\r", "Hall of Fame corruption warning"),
+        (234, "The repellent’s effect wore off!\\nWould you like to use another one?", "reusable Repel prompt"),
+        (236, "You used the {STRVAR_1 8, 1, 0}.", "reusable Repel used text"),
+        (238, "Begin auto-battle.", "debug auto-battle text"),
     ],
     197: [
         (1842, "What will {STRVAR_1 1, 0, 0} do?{YESNO 0}", "battle prompt"),
@@ -122,6 +126,25 @@ TEXT_EXPECTED = {
         (298, "CATEGORY", "summary move category label"),
         (304, "SWITCH", "summary move switch command"),
     ],
+}
+
+
+SCRIPT_EXPECTED = {
+    Path("armips/scr_seq/scr_seq_00003_commonscript.s"): [
+        (
+            r"scr_seq_0003_072_repels:.*?npc_msg 234.*?QueueNewRepel.*?npc_msg 236",
+            "reusable Repel script uses appended bank 40 text IDs",
+        ),
+        (
+            r"scr_seq_0003_073_autobattle_testing:.*?npc_msg 238",
+            "debug auto-battle script uses appended bank 40 text ID",
+        ),
+    ],
+}
+
+
+SCRIPT_TEXT_BANKS = {
+    Path("armips/scr_seq/scr_seq_00003_commonscript.s"): 40,
 }
 
 
@@ -207,6 +230,47 @@ def check_text_sources(engine: Path) -> list[str]:
     return failures
 
 
+def check_script_sources(engine: Path) -> list[str]:
+    failures: list[str] = []
+    for script_relpath, expected_patterns in SCRIPT_EXPECTED.items():
+        script_path = engine / script_relpath
+        if not script_path.is_file():
+            failures.append(f"missing script source: {script_path}")
+            continue
+
+        text = script_path.read_text(encoding="utf-8")
+        for pattern, label in expected_patterns:
+            if re.search(pattern, text, re.DOTALL) is None:
+                failures.append(f"script {script_relpath} {label}: pattern not found")
+
+    for script_relpath, text_bank_id in SCRIPT_TEXT_BANKS.items():
+        script_path = engine / script_relpath
+        text_path = engine / "data" / "text" / f"{text_bank_id:03}.txt"
+        if not text_path.is_file():
+            text_path = engine / "data" / "text" / f"{text_bank_id}.txt"
+        if not script_path.is_file() or not text_path.is_file():
+            continue
+
+        script = script_path.read_text(encoding="utf-8")
+        entries = text_path.read_text(encoding="utf-8").splitlines()
+        for match in re.finditer(
+            r"\b(?:npc_msg|non_npc_msg|simple_npc_msg)\s+(\d+)\b", script
+        ):
+            entry_id = int(match.group(1))
+            line_number = script.count("\n", 0, match.start()) + 1
+            if entry_id >= len(entries):
+                failures.append(
+                    f"script {script_relpath}:{line_number} text bank "
+                    f"{text_bank_id} entry {entry_id}: out of range"
+                )
+            elif entries[entry_id] == "":
+                failures.append(
+                    f"script {script_relpath}:{line_number} text bank "
+                    f"{text_bank_id} entry {entry_id}: blank message"
+                )
+    return failures
+
+
 def main() -> int:
     parser = argparse.ArgumentParser()
     parser.add_argument(
@@ -218,7 +282,12 @@ def main() -> int:
     args = parser.parse_args()
 
     engine = args.engine.resolve()
-    failures = check_arm9(engine) + check_overlays(engine) + check_text_sources(engine)
+    failures = (
+        check_arm9(engine)
+        + check_overlays(engine)
+        + check_text_sources(engine)
+        + check_script_sources(engine)
+    )
     if failures:
         print("Phase 1 stable validation failed:")
         for failure in failures:

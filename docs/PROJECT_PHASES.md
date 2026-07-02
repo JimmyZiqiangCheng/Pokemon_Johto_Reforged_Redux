@@ -9,6 +9,7 @@ Included:
 
 - HG-engine baseline build from a clean US HeartGold ROM.
 - Conservative config cleanup for stability.
+- Reusable Repel prompt restored through appended text IDs and script remapping.
 - Versioned `release/` output.
 - Documentation structure for future phases.
 
