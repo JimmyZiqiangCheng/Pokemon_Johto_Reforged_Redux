@@ -14,9 +14,13 @@ ROOT = Path(__file__).resolve().parents[2]
 ENGINE = ROOT / "hg-engine-main"
 
 
-ARM9_EXPECTED = [
+ARM9_EV_IV_CLEAN_IF_DISABLED = [
     (0x02088B60, "20 21 DC 6C 26 1C 0E 42", "summary EV/IV viewer site"),
     (0x0208D2C4, "78 21 03 23 FF F7 D8 FA", "summary entry hook site"),
+]
+
+
+ARM9_EXPECTED = [
     (0x0208C848, "00 08 0E 00 00 07 0E 00", "summary stat colors"),
     (0x0208CDE8, "03", "summary dex digits"),
     (0x0207B0B0, "F0 B5 83 B0 01 91 3E 49", "party context setup A"),
@@ -60,6 +64,15 @@ OVERLAY_EXPECTED = [
         "wild post-processing hook site",
     ),
 ]
+
+
+GENERATIONS_WILD_HOOK_CONFIG = "IMPLEMENT_GENERATIONS_WILD_MON_HOOK"
+
+
+DEFERRED_WILD_HOOK_CONFIGS = {
+    "IMPLEMENT_WILD_MON_POSTPROCESSING_HOOK",
+    "RANDOM_LEGENDARY_ROAMING_ENCOUNTERS",
+}
 
 
 TEXT_EXPECTED = {
@@ -125,6 +138,64 @@ TEXT_EXPECTED = {
         (296, "ACCURACY", "summary move accuracy label"),
         (298, "CATEGORY", "summary move category label"),
         (304, "SWITCH", "summary move switch command"),
+        (390, "HP", "summary EV/IV HP label"),
+        (391, "Attack", "summary EV/IV Attack label"),
+        (392, "Defense", "summary EV/IV Defense label"),
+        (393, "Sp. Atk", "summary EV/IV Sp. Atk label"),
+        (394, "Sp. Def", "summary EV/IV Sp. Def label"),
+        (395, "Speed", "summary EV/IV Speed label"),
+        (396, "Attack↑", "summary EV/IV Attack up label"),
+        (397, "Defense↑", "summary EV/IV Defense up label"),
+        (398, "Sp. Atk↑", "summary EV/IV Sp. Atk up label"),
+        (399, "Sp. Def↑", "summary EV/IV Sp. Def up label"),
+        (400, "Speed↑", "summary EV/IV Speed up label"),
+        (401, "Attack↓", "summary EV/IV Attack down label"),
+        (402, "Defense↓", "summary EV/IV Defense down label"),
+        (403, "Sp. Atk↓", "summary EV/IV Sp. Atk down label"),
+        (404, "Sp. Def↓", "summary EV/IV Sp. Def down label"),
+        (405, "Speed↓", "summary EV/IV Speed down label"),
+        (406, "EV", "summary EV mode label"),
+        (407, "IV", "summary IV mode label"),
+    ],
+}
+
+
+TEXT_COMPACT_EXPECTED = {
+    302: [
+        (109, "SKILLS", "runtime summary stat page title"),
+        (110, "HP", "runtime summary HP label"),
+        (111, "Attack", "runtime summary Attack label"),
+        (112, "Defense", "runtime summary Defense label"),
+        (113, "Sp. Atk", "runtime summary Sp. Atk label"),
+        (114, "Sp. Def", "runtime summary Sp. Def label"),
+        (115, "Speed", "runtime summary Speed label"),
+        (116, "Ability", "runtime summary Ability label"),
+        (117, "/", "runtime summary PP slash label"),
+        (128, "BATTLE MOVES", "runtime summary moves title"),
+        (135, "PP", "runtime summary PP label"),
+        (146, "{ALN_CENTER}Cancel", "runtime summary move cancel button"),
+        (147, "POWER", "runtime summary move power label"),
+        (148, "ACCURACY", "runtime summary move accuracy label"),
+        (149, "CATEGORY", "runtime summary move category label"),
+        (152, "SWITCH", "runtime summary move switch command"),
+        (195, "HP", "runtime summary EV/IV HP label"),
+        (196, "Attack", "runtime summary EV/IV Attack label"),
+        (197, "Defense", "runtime summary EV/IV Defense label"),
+        (198, "Sp. Atk", "runtime summary EV/IV Sp. Atk label"),
+        (199, "Sp. Def", "runtime summary EV/IV Sp. Def label"),
+        (200, "Speed", "runtime summary EV/IV Speed label"),
+        (201, "Attack↑", "runtime summary EV/IV Attack up label"),
+        (202, "Defense↑", "runtime summary EV/IV Defense up label"),
+        (203, "Sp. Atk↑", "runtime summary EV/IV Sp. Atk up label"),
+        (204, "Sp. Def↑", "runtime summary EV/IV Sp. Def up label"),
+        (205, "Speed↑", "runtime summary EV/IV Speed up label"),
+        (206, "Attack↓", "runtime summary EV/IV Attack down label"),
+        (207, "Defense↓", "runtime summary EV/IV Defense down label"),
+        (208, "Sp. Atk↓", "runtime summary EV/IV Sp. Atk down label"),
+        (209, "Sp. Def↓", "runtime summary EV/IV Sp. Def down label"),
+        (210, "Speed↓", "runtime summary EV/IV Speed down label"),
+        (211, "EV", "runtime summary EV mode label"),
+        (212, "IV", "runtime summary IV mode label"),
     ],
 }
 
@@ -156,6 +227,58 @@ def format_bytes(value: bytes) -> str:
     return " ".join(f"{byte:02X}" for byte in value)
 
 
+def is_define_enabled(engine: Path, define: str) -> bool:
+    config_path = engine / "include" / "config.h"
+    if not config_path.is_file():
+        return False
+
+    pattern = re.compile(rf"^\s*#\s*define\s+{re.escape(define)}\b")
+    for line in config_path.read_text(encoding="utf-8").splitlines():
+        stripped = line.lstrip()
+        if stripped.startswith("//"):
+            continue
+        if pattern.search(line):
+            return True
+    return False
+
+
+def read_msgenc_text_entries(text_path: Path) -> list[str]:
+    with text_path.open("r", encoding="utf-8", newline="") as file:
+        text = file.read()
+
+    # The C++ encoder reads through an MSYS text stream. Existing archives use
+    # CRCRLF separators; MSYS text translation turns those into CRLF before the
+    # encoder's custom CR/LF splitter runs.
+    text = text.replace("\r\n", "\n")
+
+    entries: list[str] = []
+    pos = 0
+    while True:
+        text = text[pos:]
+        if not text:
+            break
+
+        delimiters = [
+            index for index in (text.find("\r"), text.find("\n")) if index != -1
+        ]
+        first_delimiter = min(delimiters) if delimiters else -1
+        if first_delimiter == -1:
+            entries.append(text)
+            break
+
+        entries.append(text[:first_delimiter])
+        search_pos = min(first_delimiter + 1, len(text) - 1)
+        next_pos = max(
+            text.rfind("\r", 0, search_pos + 1),
+            text.rfind("\n", 0, search_pos + 1),
+        )
+        if next_pos == -1:
+            break
+        pos = next_pos + 1
+
+    return entries
+
+
 def check_arm9(engine: Path) -> list[str]:
     arm9_path = engine / "base" / "arm9.bin"
     if not arm9_path.is_file():
@@ -163,7 +286,11 @@ def check_arm9(engine: Path) -> list[str]:
 
     data = arm9_path.read_bytes()
     failures: list[str] = []
-    for address, expected_hex, label in ARM9_EXPECTED:
+    expected_entries = list(ARM9_EXPECTED)
+    if not is_define_enabled(engine, "IMPLEMENT_NEW_EV_IV_VIEWER"):
+        expected_entries.extend(ARM9_EV_IV_CLEAN_IF_DISABLED)
+
+    for address, expected_hex, label in expected_entries:
         expected = parse_bytes(expected_hex)
         offset = address - 0x02000000
         actual = data[offset : offset + len(expected)]
@@ -175,7 +302,21 @@ def check_arm9(engine: Path) -> list[str]:
     return failures
 
 
+def check_config_sources(engine: Path) -> list[str]:
+    failures: list[str] = []
+    for define in sorted(DEFERRED_WILD_HOOK_CONFIGS):
+        if is_define_enabled(engine, define):
+            failures.append(
+                f"config {define}: deferred wild encounter hook config must "
+                "stay disabled for the stable Generations-aligned wild hook"
+            )
+    return failures
+
+
 def check_overlays(engine: Path) -> list[str]:
+    if is_define_enabled(engine, GENERATIONS_WILD_HOOK_CONFIG):
+        return []
+
     y9_path = engine / "base" / "overarm9.bin"
     overlay_dir = engine / "base" / "overlay"
     if not y9_path.is_file():
@@ -227,6 +368,26 @@ def check_text_sources(engine: Path) -> list[str]:
                     f"text {archive_id} entry {entry_id} {label}: "
                     f"got {actual!r}, expected {expected!r}"
                 )
+
+        compact_expected_entries = TEXT_COMPACT_EXPECTED.get(archive_id)
+        if compact_expected_entries is None:
+            continue
+
+        compact_entries = read_msgenc_text_entries(text_path)
+        for entry_id, expected, label in compact_expected_entries:
+            if entry_id >= len(compact_entries):
+                failures.append(
+                    f"text {archive_id} compact entry {entry_id} {label}: "
+                    f"file has only {len(compact_entries)} compact entries"
+                )
+                continue
+
+            actual = compact_entries[entry_id]
+            if actual != expected:
+                failures.append(
+                    f"text {archive_id} compact entry {entry_id} {label}: "
+                    f"got {actual!r}, expected {expected!r}"
+                )
     return failures
 
 
@@ -272,6 +433,9 @@ def check_script_sources(engine: Path) -> list[str]:
 
 
 def main() -> int:
+    if hasattr(sys.stdout, "reconfigure"):
+        sys.stdout.reconfigure(encoding="utf-8")
+
     parser = argparse.ArgumentParser()
     parser.add_argument(
         "--engine",
@@ -283,7 +447,8 @@ def main() -> int:
 
     engine = args.engine.resolve()
     failures = (
-        check_arm9(engine)
+        check_config_sources(engine)
+        + check_arm9(engine)
         + check_overlays(engine)
         + check_text_sources(engine)
         + check_script_sources(engine)

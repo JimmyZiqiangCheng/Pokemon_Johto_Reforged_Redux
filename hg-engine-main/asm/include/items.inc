@@ -1060,7 +1060,7 @@
 .equ ITEM_MEW_CANDY,                    1055
 .equ ITEM_MELTAN_CANDY,                 1056
 .equ ITEM_MAGMAR_CANDY,                 1057
-.equ ITEM_UNKNOWN_1058,                 1058
+.equ ITEM_MAX_CANDY,                    1058
 .equ ITEM_UNKNOWN_1059,                 1059
 .equ ITEM_UNKNOWN_1060,                 1060
 .equ ITEM_UNKNOWN_1061,                 1061

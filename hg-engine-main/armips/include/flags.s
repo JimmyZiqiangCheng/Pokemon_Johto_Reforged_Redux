@@ -2227,6 +2227,32 @@ FLAG_UNK_B5E                                              equ 2910
 FLAG_UNK_B5F                                              equ 2911
 
 
+// Phase 8 legendary caught flags start
+FLAG_PHASE8_CAUGHT_MEW                                     equ 2865
+FLAG_PHASE8_CAUGHT_CELEBI                                  equ 2866
+FLAG_PHASE8_CAUGHT_REGIROCK                                equ 2867
+FLAG_PHASE8_CAUGHT_REGICE                                  equ 2868
+FLAG_PHASE8_CAUGHT_REGISTEEL                               equ 2869
+FLAG_PHASE8_CAUGHT_REGIGIGAS                               equ 2870
+FLAG_PHASE8_CAUGHT_LATIAS                                  equ 2871
+FLAG_PHASE8_CAUGHT_LATIOS                                  equ 2872
+FLAG_PHASE8_CAUGHT_JIRACHI                                 equ 2873
+FLAG_PHASE8_CAUGHT_DEOXYS                                  equ 2874
+FLAG_PHASE8_CAUGHT_UXIE                                    equ 2875
+FLAG_PHASE8_CAUGHT_MESPRIT                                 equ 2876
+FLAG_PHASE8_CAUGHT_AZELF                                   equ 2877
+FLAG_PHASE8_CAUGHT_DIALGA                                  equ 2878
+FLAG_PHASE8_CAUGHT_PALKIA                                  equ 2879
+FLAG_PHASE8_CAUGHT_GIRATINA                                equ 2880
+FLAG_PHASE8_CAUGHT_HEATRAN                                 equ 2881
+FLAG_PHASE8_CAUGHT_CRESSELIA                               equ 2882
+FLAG_PHASE8_CAUGHT_DARKRAI                                 equ 2883
+FLAG_PHASE8_CAUGHT_SHAYMIN                                 equ 2884
+FLAG_PHASE8_CAUGHT_MANAPHY                                 equ 2885
+FLAG_PHASE8_CAUGHT_PHIONE                                  equ 2886
+FLAG_PHASE8_CAUGHT_ARCEUS                                  equ 2887
+// Phase 8 legendary caught flags end
+
 NUM_FLAGS                                                 equ  2912
 
 

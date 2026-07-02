@@ -14,6 +14,12 @@
 - Run `python tools\johto_reforged\validate_phase1_stable_hooks.py` for phase 1
   releases, including save screen, battle command, move PP, party menu, and
   summary screen text ID checks plus reusable Repel common-script text remaps.
+- Run `python tools\johto_reforged\validate_phase5_items.py` for phase 5+
+  releases to confirm badge-gated marts, prices, Max Candy, and stocked item
+  icons.
+- Run `python tools\johto_reforged\validate_phase6_postgame.py` for phase 6+
+  releases to confirm the Dojo postgame hub, Champion Circuit records,
+  legendary dossier references, and Phase 8 caught flags.
 - Decode rebuilt text archives 40, 197, 300, and 302 when changing any text or
   script message IDs.
 - Generate a versioned release folder under `release/`.

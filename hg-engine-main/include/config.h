@@ -41,6 +41,17 @@
 #define HIDDEN_ABILITIES_FLAG          2600
 #define HIDDEN_ABILITIES_STARTERS_FLAG 2601
 
+// IMPLEMENT_GENERATIONS_WILD_MON_HOOK keeps the baseline HG-engine/Generations
+// wild encounter hook for held items, passive forms, Unown, scripted hidden
+// abilities, and Johto Reforged's natural wild hidden-ability rolling.
+#define IMPLEMENT_GENERATIONS_WILD_MON_HOOK
+
+// Treat wild hidden abilities as another natural ability slot during ordinary
+// wild Pokemon generation. Random legendary replacement remains disabled after
+// the v0.5.3 roamer crash report.
+#define NATURAL_WILD_HIDDEN_ABILITIES
+// #define RANDOM_LEGENDARY_ROAMING_ENCOUNTERS
+
 // MEGA_EVOLUTIONS defines whether or not Pokémon that are able to mega evolve will be able to do so.
 // commenting this line out essentially disables mega evolutions and maintains default behavior with respect to them.  leaving this as-is will introduce mega evolutions when applied to the game.
 // #define MEGA_EVOLUTIONS
@@ -79,8 +90,8 @@
 #define CRITICAL_CAPTURE_GENERATION GEN_LATEST
 
 // IMPLEMENT_NEW_EV_IV_VIEWER defines whether or not pressing L, R, or Select in the pokémon summaries will display EV's, IV's, or the raw stat
-// Deferred from phase 1: the abandoned build showed summary UI hook instability.
-// #define IMPLEMENT_NEW_EV_IV_VIEWER
+// Johto Reforged uses appended summary text IDs so this hook does not shift vanilla UI labels.
+#define IMPLEMENT_NEW_EV_IV_VIEWER
 
 // Deferred from phase 1: these summary/nature support patches touch the same
 // stat-page code path as the unstable EV/IV viewer.
@@ -183,7 +194,7 @@
 #define DELETABLE_HMS
 
 // MART_EXPANSION allows for adding and modifying items to the mart inventories
-// #define MART_EXPANSION
+#define MART_EXPANSION
 
 // POKEATHLON_EXPANSION allows for adding and modifying items to the Pokéathlon shop inventories
 // #define POKEATHLON_SHOP_EXPANSION

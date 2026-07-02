@@ -814,7 +814,7 @@ const EvolutionTable __data[MAX_SPECIES_INCLUDING_FORMS + 1] =
 
     [SPECIES_PRIMEAPE] = {
         .entries = {
-            { EVO_FORM_ARGUMENT, 20, SPECIES_ANNIHILAPE },
+            { EVO_HAS_MOVE, MOVE_RAGE_FIST, SPECIES_ANNIHILAPE },
             { EVO_NONE, 0, SPECIES_NONE },
             { EVO_NONE, 0, SPECIES_NONE },
             { EVO_NONE, 0, SPECIES_NONE },
@@ -871,7 +871,7 @@ const EvolutionTable __data[MAX_SPECIES_INCLUDING_FORMS + 1] =
     [SPECIES_POLIWHIRL] = {
         .entries = {
             { EVO_STONE, ITEM_WATER_STONE, SPECIES_POLIWRATH },
-            { EVO_TRADE_ITEM, ITEM_KINGS_ROCK, SPECIES_POLITOED },
+            { EVO_STONE, ITEM_KINGS_ROCK, SPECIES_POLITOED },
             { EVO_NONE, 0, SPECIES_NONE },
             { EVO_NONE, 0, SPECIES_NONE },
             { EVO_NONE, 0, SPECIES_NONE },
@@ -912,7 +912,7 @@ const EvolutionTable __data[MAX_SPECIES_INCLUDING_FORMS + 1] =
 
     [SPECIES_KADABRA] = {
         .entries = {
-            { EVO_TRADE, 0, SPECIES_ALAKAZAM },
+            { EVO_NONE, 0, SPECIES_NONE },
             { EVO_STONE, ITEM_LINKING_CORD, SPECIES_ALAKAZAM },
             { EVO_NONE, 0, SPECIES_NONE },
             { EVO_NONE, 0, SPECIES_NONE },
@@ -954,7 +954,7 @@ const EvolutionTable __data[MAX_SPECIES_INCLUDING_FORMS + 1] =
 
     [SPECIES_MACHOKE] = {
         .entries = {
-            { EVO_TRADE, 0, SPECIES_MACHAMP },
+            { EVO_NONE, 0, SPECIES_NONE },
             { EVO_STONE, ITEM_LINKING_CORD, SPECIES_MACHAMP },
             { EVO_NONE, 0, SPECIES_NONE },
             { EVO_NONE, 0, SPECIES_NONE },
@@ -1066,7 +1066,7 @@ const EvolutionTable __data[MAX_SPECIES_INCLUDING_FORMS + 1] =
 
     [SPECIES_GRAVELER] = {
         .entries = {
-            { EVO_TRADE, 0, SPECIES_GOLEM },
+            { EVO_NONE, 0, SPECIES_NONE },
             { EVO_STONE, ITEM_LINKING_CORD, SPECIES_GOLEM },
             { EVO_NONE, 0, SPECIES_NONE },
             { EVO_NONE, 0, SPECIES_NONE },
@@ -1123,7 +1123,7 @@ const EvolutionTable __data[MAX_SPECIES_INCLUDING_FORMS + 1] =
     [SPECIES_SLOWPOKE] = {
         .entries = {
             { EVO_LEVEL, 37, SPECIES_SLOWBRO },
-            { EVO_TRADE_ITEM, ITEM_KINGS_ROCK, SPECIES_SLOWKING },
+            { EVO_STONE, ITEM_KINGS_ROCK, SPECIES_SLOWKING },
             { EVO_NONE, 0, SPECIES_NONE },
             { EVO_NONE, 0, SPECIES_NONE },
             { EVO_NONE, 0, SPECIES_NONE },
@@ -1318,7 +1318,7 @@ const EvolutionTable __data[MAX_SPECIES_INCLUDING_FORMS + 1] =
 
     [SPECIES_HAUNTER] = {
         .entries = {
-            { EVO_TRADE, 0, SPECIES_GENGAR },
+            { EVO_NONE, 0, SPECIES_NONE },
             { EVO_STONE, ITEM_LINKING_CORD, SPECIES_GENGAR },
             { EVO_NONE, 0, SPECIES_NONE },
             { EVO_NONE, 0, SPECIES_NONE },
@@ -1346,7 +1346,7 @@ const EvolutionTable __data[MAX_SPECIES_INCLUDING_FORMS + 1] =
 
     [SPECIES_ONIX] = {
         .entries = {
-            { EVO_TRADE_ITEM, ITEM_METAL_COAT, SPECIES_STEELIX },
+            { EVO_STONE, ITEM_METAL_COAT, SPECIES_STEELIX },
             { EVO_NONE, 0, SPECIES_NONE },
             { EVO_NONE, 0, SPECIES_NONE },
             { EVO_NONE, 0, SPECIES_NONE },
@@ -1584,7 +1584,7 @@ const EvolutionTable __data[MAX_SPECIES_INCLUDING_FORMS + 1] =
 
     [SPECIES_RHYDON] = {
         .entries = {
-            { EVO_TRADE_ITEM, ITEM_PROTECTOR, SPECIES_RHYPERIOR },
+            { EVO_STONE, ITEM_PROTECTOR, SPECIES_RHYPERIOR },
             { EVO_NONE, 0, SPECIES_NONE },
             { EVO_NONE, 0, SPECIES_NONE },
             { EVO_NONE, 0, SPECIES_NONE },
@@ -1654,7 +1654,7 @@ const EvolutionTable __data[MAX_SPECIES_INCLUDING_FORMS + 1] =
 
     [SPECIES_SEADRA] = {
         .entries = {
-            { EVO_TRADE_ITEM, ITEM_DRAGON_SCALE, SPECIES_KINGDRA },
+            { EVO_STONE, ITEM_DRAGON_SCALE, SPECIES_KINGDRA },
             { EVO_NONE, 0, SPECIES_NONE },
             { EVO_NONE, 0, SPECIES_NONE },
             { EVO_NONE, 0, SPECIES_NONE },
@@ -1738,7 +1738,7 @@ const EvolutionTable __data[MAX_SPECIES_INCLUDING_FORMS + 1] =
 
     [SPECIES_SCYTHER] = {
         .entries = {
-            { EVO_TRADE_ITEM, ITEM_METAL_COAT, SPECIES_SCIZOR },
+            { EVO_STONE, ITEM_METAL_COAT, SPECIES_SCIZOR },
             { EVO_STONE, ITEM_BLACK_AUGURITE, SPECIES_KLEAVOR },
             { EVO_NONE, 0, SPECIES_NONE },
             { EVO_NONE, 0, SPECIES_NONE },
@@ -1766,7 +1766,7 @@ const EvolutionTable __data[MAX_SPECIES_INCLUDING_FORMS + 1] =
 
     [SPECIES_ELECTABUZZ] = {
         .entries = {
-            { EVO_TRADE_ITEM, ITEM_ELECTIRIZER, SPECIES_ELECTIVIRE },
+            { EVO_STONE, ITEM_ELECTIRIZER, SPECIES_ELECTIVIRE },
             { EVO_NONE, 0, SPECIES_NONE },
             { EVO_NONE, 0, SPECIES_NONE },
             { EVO_NONE, 0, SPECIES_NONE },
@@ -1780,7 +1780,7 @@ const EvolutionTable __data[MAX_SPECIES_INCLUDING_FORMS + 1] =
 
     [SPECIES_MAGMAR] = {
         .entries = {
-            { EVO_TRADE_ITEM, ITEM_MAGMARIZER, SPECIES_MAGMORTAR },
+            { EVO_STONE, ITEM_MAGMARIZER, SPECIES_MAGMORTAR },
             { EVO_NONE, 0, SPECIES_NONE },
             { EVO_NONE, 0, SPECIES_NONE },
             { EVO_NONE, 0, SPECIES_NONE },
@@ -1934,7 +1934,7 @@ const EvolutionTable __data[MAX_SPECIES_INCLUDING_FORMS + 1] =
 
     [SPECIES_PORYGON] = {
         .entries = {
-            { EVO_TRADE_ITEM, ITEM_UP_GRADE, SPECIES_PORYGON2 },
+            { EVO_STONE, ITEM_UP_GRADE, SPECIES_PORYGON2 },
             { EVO_NONE, 0, SPECIES_NONE },
             { EVO_NONE, 0, SPECIES_NONE },
             { EVO_NONE, 0, SPECIES_NONE },
@@ -3278,7 +3278,7 @@ const EvolutionTable __data[MAX_SPECIES_INCLUDING_FORMS + 1] =
 
     [SPECIES_PORYGON2] = {
         .entries = {
-            { EVO_TRADE_ITEM, ITEM_DUBIOUS_DISC, SPECIES_PORYGON_Z },
+            { EVO_STONE, ITEM_DUBIOUS_DISC, SPECIES_PORYGON_Z },
             { EVO_NONE, 0, SPECIES_NONE },
             { EVO_NONE, 0, SPECIES_NONE },
             { EVO_NONE, 0, SPECIES_NONE },
@@ -3292,7 +3292,7 @@ const EvolutionTable __data[MAX_SPECIES_INCLUDING_FORMS + 1] =
 
     [SPECIES_STANTLER] = {
         .entries = {
-            { EVO_FORM_ARGUMENT, 20, SPECIES_WYRDEER },
+            { EVO_HAS_MOVE, MOVE_PSYSHIELD_BASH, SPECIES_WYRDEER },
             { EVO_NONE, 0, SPECIES_NONE },
             { EVO_NONE, 0, SPECIES_NONE },
             { EVO_NONE, 0, SPECIES_NONE },
@@ -4903,7 +4903,7 @@ const EvolutionTable __data[MAX_SPECIES_INCLUDING_FORMS + 1] =
     [SPECIES_FEEBAS] = {
         .entries = {
             { EVO_BEAUTY, 170, SPECIES_MILOTIC },
-            { EVO_TRADE_ITEM, ITEM_PRISM_SCALE, SPECIES_MILOTIC },
+            { EVO_STONE, ITEM_PRISM_SCALE, SPECIES_MILOTIC },
             { EVO_NONE, 0, SPECIES_NONE },
             { EVO_NONE, 0, SPECIES_NONE },
             { EVO_NONE, 0, SPECIES_NONE },
@@ -5000,7 +5000,7 @@ const EvolutionTable __data[MAX_SPECIES_INCLUDING_FORMS + 1] =
 
     [SPECIES_DUSCLOPS] = {
         .entries = {
-            { EVO_TRADE_ITEM, ITEM_REAPER_CLOTH, SPECIES_DUSKNOIR },
+            { EVO_STONE, ITEM_REAPER_CLOTH, SPECIES_DUSKNOIR },
             { EVO_NONE, 0, SPECIES_NONE },
             { EVO_NONE, 0, SPECIES_NONE },
             { EVO_NONE, 0, SPECIES_NONE },
@@ -5140,8 +5140,8 @@ const EvolutionTable __data[MAX_SPECIES_INCLUDING_FORMS + 1] =
 
     [SPECIES_CLAMPERL] = {
         .entries = {
-            { EVO_TRADE_ITEM, ITEM_DEEP_SEA_TOOTH, SPECIES_HUNTAIL },
-            { EVO_TRADE_ITEM, ITEM_DEEP_SEA_SCALE, SPECIES_GOREBYSS },
+            { EVO_STONE, ITEM_DEEP_SEA_TOOTH, SPECIES_HUNTAIL },
+            { EVO_STONE, ITEM_DEEP_SEA_SCALE, SPECIES_GOREBYSS },
             { EVO_NONE, 0, SPECIES_NONE },
             { EVO_NONE, 0, SPECIES_NONE },
             { EVO_NONE, 0, SPECIES_NONE },
@@ -13330,7 +13330,7 @@ const EvolutionTable __data[MAX_SPECIES_INCLUDING_FORMS + 1] =
 
     [SPECIES_URSALUNA] = {
         .entries = {
-            { EVO_NONE, 0, SPECIES_NONE },
+            { EVO_LEVEL, 55, SPECIES_URSALUNA_BLOODMOON },
             { EVO_NONE, 0, SPECIES_NONE },
             { EVO_NONE, 0, SPECIES_NONE },
             { EVO_NONE, 0, SPECIES_NONE },
@@ -14464,7 +14464,7 @@ const EvolutionTable __data[MAX_SPECIES_INCLUDING_FORMS + 1] =
 
     [SPECIES_DUDUNSPARCE] = {
         .entries = {
-            { EVO_NONE, 0, SPECIES_NONE },
+            { EVO_LEVEL, 50, SPECIES_DUDUNSPARCE_THREE_SEGMENT },
             { EVO_NONE, 0, SPECIES_NONE },
             { EVO_NONE, 0, SPECIES_NONE },
             { EVO_NONE, 0, SPECIES_NONE },
@@ -15948,7 +15948,7 @@ const EvolutionTable __data[MAX_SPECIES_INCLUDING_FORMS + 1] =
 
     [SPECIES_GRAVELER_ALOLAN] = {
         .entries = {
-            { EVO_TRADE, 0, MON_WITH_FORM(SPECIES_GOLEM, 1) },
+            { EVO_NONE, 0, SPECIES_NONE },
             { EVO_STONE, ITEM_LINKING_CORD, MON_WITH_FORM(SPECIES_GOLEM, 1) },
             { EVO_NONE, 0, SPECIES_NONE },
             { EVO_NONE, 0, SPECIES_NONE },
@@ -16270,7 +16270,7 @@ const EvolutionTable __data[MAX_SPECIES_INCLUDING_FORMS + 1] =
 
     [SPECIES_FARFETCHD_GALARIAN] = {
         .entries = {
-            { EVO_AMOUNT_OF_CRITICAL_HITS, 3, SPECIES_SIRFETCHD },
+            { EVO_HAS_MOVE, MOVE_LEAF_BLADE, SPECIES_SIRFETCHD },
             { EVO_NONE, 0, SPECIES_NONE },
             { EVO_NONE, 0, SPECIES_NONE },
             { EVO_NONE, 0, SPECIES_NONE },

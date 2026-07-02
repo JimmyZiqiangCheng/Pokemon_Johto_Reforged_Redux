@@ -1061,7 +1061,7 @@
 #define ITEM_MEW_CANDY                    1055
 #define ITEM_MELTAN_CANDY                 1056
 #define ITEM_MAGMAR_CANDY                 1057
-#define ITEM_UNKNOWN_1058                 1058
+#define ITEM_MAX_CANDY                    1058
 #define ITEM_UNKNOWN_1059                 1059
 #define ITEM_UNKNOWN_1060                 1060
 #define ITEM_UNKNOWN_1061                 1061
