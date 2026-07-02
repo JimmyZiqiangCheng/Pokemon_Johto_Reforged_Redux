@@ -41,12 +41,12 @@ only.
 
 ## Current Release
 
-`release/Pokemon-JohtoReforged-v0.1.1-ui-rollback/`
+`release/Pokemon-JohtoReforged-v0.1.2-text-restore/`
 
 - Patched ROM SHA-256:
-  `900B2A7935592D46081583EA0F949774C3CE08018DAB660F6D3A14C8E62DF923`
+  `6B475E12BC0DB3B4A05E4F7211F1CA37BE5C3113E8190258D2E9D7FF66DA12B8`
 - Xdelta SHA-256:
-  `D97369F176C05D0D4137E7FE9EEFF55B4E9678929E2C9B97956AA100B52667E7`
+  `6167B11280C0F669A369A4A25E61FF708971B21A98E4E883F4CB77457B6FF23F`
 - Patch verification: xdelta rebuild from the clean ROM matched the packaged
   patched ROM hash.
 
@@ -57,4 +57,6 @@ After each phase 1 build, run:
 `python tools\johto_reforged\validate_phase1_stable_hooks.py`
 
 This checks that deferred summary UI, nature stat, party menu, party item-use,
-and wild post-processing hook sites match clean HeartGold bytes.
+and wild post-processing hook sites match clean HeartGold bytes. It also checks
+that fragile party menu and summary screen text IDs remain aligned to clean
+HeartGold entries.

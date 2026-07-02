@@ -1,6 +1,6 @@
 # Pokemon Johto Reforged - Features and Changes
 
-Document version: v2026.07.02-ui-rollback
+Document version: v2026.07.02-text-restore
 Last updated: 2026-07-02
 
 This project restarts Pokemon Johto Reforged from a smaller, safer baseline.
@@ -21,7 +21,7 @@ will be reintroduced one phase at a time with a build and release at each step.
 
 | Phase | Scope | Status |
 | --- | --- | --- |
-| 1 | Initial HG-engine build with important low-risk QOL toggles only | Complete in `v0.1.1-ui-rollback` |
+| 1 | Initial HG-engine build with important low-risk QOL toggles only | Complete in `v0.1.2-text-restore` |
 | 2 | Pokemon stats, ability, move, and typing changes | Planned |
 | 3 | Wild encounter table changes | Planned |
 | 4 | Trainer updates | Planned |
@@ -68,18 +68,19 @@ Deferred from phase 1:
 
 ## Current Release
 
-- Version: `v0.1.1-ui-rollback`
-- Folder: `release/Pokemon-JohtoReforged-v0.1.1-ui-rollback/`
+- Version: `v0.1.2-text-restore`
+- Folder: `release/Pokemon-JohtoReforged-v0.1.2-text-restore/`
 - Clean ROM SHA-256:
   `65F02A56842B75AA92D775D56D657A56FE3FA993550B04DC20704AB82D760105`
 - Patched ROM SHA-256:
-  `900B2A7935592D46081583EA0F949774C3CE08018DAB660F6D3A14C8E62DF923`
+  `6B475E12BC0DB3B4A05E4F7211F1CA37BE5C3113E8190258D2E9D7FF66DA12B8`
 - Xdelta SHA-256:
-  `D97369F176C05D0D4137E7FE9EEFF55B4E9678929E2C9B97956AA100B52667E7`
+  `6167B11280C0F669A369A4A25E61FF708971B21A98E4E883F4CB77457B6FF23F`
 
 ## Release History
 
 | Version | Notes |
 | --- | --- |
+| `v0.1.2-text-restore` | Supersedes `v0.1.1`; restores clean HeartGold text archive IDs for party menu and summary screen labels after HG-engine-added text shifted entries 300 and 302. Adds validation for those fragile IDs. |
 | `v0.1.1-ui-rollback` | Supersedes `v0.1.0`; restores clean HeartGold bytes for deferred summary UI, nature stat, party context, party item-use, and wild post-processing hook sites after party/summary text corruption was reported. |
 | `v0.1.0-initial-qol` | Initial HG-engine QOL baseline; superseded because some deferred support patches still affected summary and party UI code paths. |

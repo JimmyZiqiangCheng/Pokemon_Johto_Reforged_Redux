@@ -1,30 +1,30 @@
 CONFIRM
 CANCEL
-
-
-
-
-
-
+     
+     
+     
+     
+     
+     
 {STRVAR_1 1, 0, 0}
 {STRVAR_1 1, 0, 0}
 {STRVAR_1 1, 0, 0}
 {STRVAR_1 1, 0, 0}
 {STRVAR_1 1, 0, 0}
 {STRVAR_1 1, 0, 0}
-
-
-
-
-
-
-
-
-
-
-
-
-
+     
+     
+     
+     
+     
+     
+     
+     
+     
+     
+     
+     
+ 
 ♂
 ♀
 Choose a Pokémon.
@@ -32,9 +32,9 @@ Choose a Pokémon.\r
 Move to where?
 Give to which Pokémon?
 Use on which Pokémon?
-Use on which Pokémon?
+Teach which Pokémon?
 Choose Pokémon and confirm.
-
+             
 Use on which Pokémon?
 Do what with\n{STRVAR_1 1, 0, 0}?
 Do what with\nan item?
@@ -43,25 +43,25 @@ Restore\nwhich move?
 Boost the PP\nof which move?
 Set this\ncustom Ball?
 Send the removed Mail to\nyour PC?
-
-
+  
+   
 The Mail was sent to your PC.\r
 If the Mail is removed, its written\nmessage will be lost. Is that OK?
-
-
+  
+   
 Your PC’s Mailbox is full.\r
 Mail was taken from the\nPokémon.\r
-{STRVAR_1 1, 0, 0} wants to learn the\nmove {STRVAR_1 6, 1, 0}.\rShould another move be forgotten and\nreplaced with {STRVAR_1 6, 1, 0}?
-
-
+{STRVAR_1 1, 0, 0} wants to learn the\nmove {STRVAR_1 6, 1, 0}.\rHowever, {STRVAR_1 1, 0, 0} already\nknows four moves.\rShould a move be deleted and\nreplaced with {STRVAR_1 6, 1, 0}?
+  
+   
 Stop trying to teach\n{STRVAR_1 6, 1, 0}?
-
-
-{STRVAR_1 1, 0, 0} did not learn\n{STRVAR_1 6, 1, 0}.\r
-Please choose a move that will be\nreplaced with {STRVAR_1 6, 1, 0}.\r
-One...{PAUSE 20}two...{PAUSE 20}and...{PAUSE 20}ta-da!{WAIT 3}{WAIT 5}\r{STRVAR_1 1, 0, 0} forgot\n{STRVAR_1 6, 1, 0}\r
-and it learned {STRVAR_1 6, 1, 0} instead!{WAIT 4}{WAIT 2}\r
-{STRVAR_1 1, 0, 0} can’t learn\n{STRVAR_1 6, 1, 0}!\rThe two are incompatible!\r
+  
+   
+{STRVAR_1 1, 0, 0} did not learn the\nmove {STRVAR_1 6, 1, 0}.\r
+Which move should be\nforgotten?\r
+1, {PAUSE 20}2, and{PAUSE 20}... {PAUSE 20}... {PAUSE 20}... Poof!{WAIT 3}{WAIT 5}\r{STRVAR_1 1, 0, 0} forgot how to\nuse {STRVAR_1 6, 1, 0}.\rAnd...\r
+{STRVAR_1 1, 0, 0} learned\n{STRVAR_1 6, 1, 0}!{WAIT 4}{WAIT 2}\r
+{STRVAR_1 1, 0, 0} and {STRVAR_1 6, 1, 0}\nare not compatible.\r{STRVAR_1 6, 1, 0} can’t be learned.\r
 {STRVAR_1 1, 0, 0} already knows\n{STRVAR_1 6, 1, 0}.\r
 {STRVAR_1 1, 0, 0}’s HP was restored\nby {STRVAR_1 52, 1, 0} point(s).\r
 {STRVAR_1 1, 0, 0} was cured of its\npoisoning.\r
@@ -78,25 +78,25 @@ PP was restored.\r
 This can’t be used until a new\nBadge is obtained.\r
 Must remove Mail before the\nPokémon is allowed to hold an item.\r
 {STRVAR_1 1, 0, 0} is already holding\n{STRVAR_1 8, 1, 0}.\rWould you like to switch the\ntwo items?
-
-
+  
+   
 {STRVAR_1 1, 0, 0} isn’t holding\nanything.\r
 Received the {STRVAR_1 8, 1, 0}\nfrom {STRVAR_1 1, 0, 0}.\r
 The Bag is full.\r
 The {STRVAR_1 8, 1, 0} was taken and\nreplaced with the {STRVAR_1 8, 2, 0}.\r
-
-
-
-
-
-
+           
+  
+   
+             
+  
+   
 {STRVAR_1 1, 0, 0}\nwoke up.\r
-
-
-
-
-
-
+                        
+  
+   
+                   
+  
+   
 No more than two Pokémon\nmay enter.\r
 You’re already surfing.\r
 You can’t use that here.\r
@@ -119,12 +119,12 @@ This Pokémon is holding an item.\nIt cannot hold Mail.\r
 The Ball Capsule was set.\r
 Two Capsules can’t be set.\r
 This can’t be used on\nthat Pokémon.\r
-
-
-
-
-
-
+                       
+  
+   
+                     
+  
+   
 Not enough HP...\r
 SWITCH
 SUMMARY
@@ -134,7 +134,7 @@ READ
 TAKE
 STORE
 QUIT
-
+     
 ENTER
 NO ENTRY
 {STRVAR_1 6, 0, 0}
@@ -183,45 +183,10 @@ This isn’t the place for that!\r
 {STRVAR_1 8, 1, 0}
 What will you do\nwith the Egg?
 Please select an Egg.
-
+                
 CONFIRM
 You must use the same kind\nof Pokémon.\r
 {STRVAR_1 0, 0, 0} changed Forme!\r
 {STRVAR_1 1, 0, 0} cannot hold\n{STRVAR_1 8, 1, 0}!\r
 The {STRVAR_1 8, 0, 0} cannot be\ngiven here.\r
 Pokémon holding a Soul Dew cannot be\nentered in the GS Cup.\r
-
-{STRVAR_1 0, 0, 0}’s ability changed!\r
-{STRVAR_1 0, 0, 0}’s stats may have changed due\nto the effects of the Hardy Mint!\r
-{STRVAR_1 0, 0, 0}’s stats may have changed due\nto the effects of the Lonely Mint!\r
-{STRVAR_1 0, 0, 0}’s stats may have changed due\nto the effects of the Brave Mint!\r
-{STRVAR_1 0, 0, 0}’s stats may have changed due\nto the effects of the Adamant Mint!\r
-{STRVAR_1 0, 0, 0}’s stats may have changed due\nto the effects of the Naughty Mint!\r
-{STRVAR_1 0, 0, 0}’s stats may have changed due\nto the effects of the Bold Mint!\r
-{STRVAR_1 0, 0, 0}’s stats may have changed due\nto the effects of the Docile Mint!\r
-{STRVAR_1 0, 0, 0}’s stats may have changed due\nto the effects of the Relaxed Mint!\r
-{STRVAR_1 0, 0, 0}’s stats may have changed due\nto the effects of the Impish Mint!\r
-{STRVAR_1 0, 0, 0}’s stats may have changed due\nto the effects of the Lax Mint!\r
-{STRVAR_1 0, 0, 0}’s stats may have changed due\nto the effects of the Timid Mint!\r
-{STRVAR_1 0, 0, 0}’s stats may have changed due\nto the effects of the Hasty Mint!\r
-{STRVAR_1 0, 0, 0}’s stats may have changed due\nto the effects of the Serious Mint!\r
-{STRVAR_1 0, 0, 0}’s stats may have changed due\nto the effects of the Jolly Mint!\r
-{STRVAR_1 0, 0, 0}’s stats may have changed due\nto the effects of the Naive Mint!\r
-{STRVAR_1 0, 0, 0}’s stats may have changed due\nto the effects of the Modest Mint!\r
-{STRVAR_1 0, 0, 0}’s stats may have changed due\nto the effects of the Mild Mint!\r
-{STRVAR_1 0, 0, 0}’s stats may have changed due\nto the effects of the Quiet Mint!\r
-{STRVAR_1 0, 0, 0}’s stats may have changed due\nto the effects of the Bashful Mint!\r
-{STRVAR_1 0, 0, 0}’s stats may have changed due\nto the effects of the Rash Mint!\r
-{STRVAR_1 0, 0, 0}’s stats may have changed due\nto the effects of the Calm Mint!\r
-{STRVAR_1 0, 0, 0}’s stats may have changed due\nto the effects of the Gentle Mint!\r
-{STRVAR_1 0, 0, 0}’s stats may have changed due\nto the effects of the Sassy Mint!\r
-{STRVAR_1 0, 0, 0}’s stats may have changed due\nto the effects of the Careful Mint!\r
-{STRVAR_1 0, 0, 0}’s stats may have changed due\nto the effects of the Quirky Mint!\r
-{STRVAR_1 1, 0, 0} learned\n{STRVAR_1 6, 1, 0}!{WAIT 4}{WAIT 2}\r
-Order which appliance?
-Refrigerator
-Electric Fan
-Lawn Mower
-Light Bulb
-Microwave Oven
-Washing Machine

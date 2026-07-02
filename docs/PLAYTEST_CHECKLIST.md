@@ -23,8 +23,10 @@ Use this checklist before marking a phase release stable.
 
 ## Regression Checks
 
-- Party menu labels are sane.
-- Summary screen labels are sane.
+- Party menu labels show `SWITCH`, `SUMMARY`, `ITEM`, and `QUIT`, not party
+  order or compatibility labels.
+- Summary screen stat, Ability, PP, move Power, Accuracy, and Category labels
+  are sane.
 - First wild encounter does not freeze.
 - Bag item labels are sane.
 - PC storage opens and behaves as 18-box vanilla storage.

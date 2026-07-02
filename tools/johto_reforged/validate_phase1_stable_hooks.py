@@ -1,5 +1,5 @@
 #!/usr/bin/env python3
-"""Validate phase 1 UI/runtime rollback bytes after an HG-engine build."""
+"""Validate phase 1 UI/runtime rollback bytes and fragile text IDs."""
 
 from __future__ import annotations
 
@@ -61,6 +61,42 @@ OVERLAY_EXPECTED = [
 ]
 
 
+TEXT_EXPECTED = {
+    300: [
+        (256, "SWITCH", "party menu switch command"),
+        (258, "SUMMARY", "party menu summary command"),
+        (260, "ITEM", "party menu item command"),
+        (270, "QUIT", "party menu quit command"),
+        (304, "FIRST", "party order first label"),
+        (306, "SECOND", "party order second label"),
+        (308, "THIRD", "party order third label"),
+        (310, "FOURTH", "party order fourth label"),
+        (312, "FIFTH", "party order fifth label"),
+        (314, "SIXTH", "party order sixth label"),
+        (316, "ABLE!", "party compatibility able label"),
+        (318, "UNABLE!", "party compatibility unable label"),
+    ],
+    302: [
+        (218, "SKILLS", "summary stat page title"),
+        (220, "HP", "summary HP label"),
+        (222, "Attack", "summary Attack label"),
+        (224, "Defense", "summary Defense label"),
+        (226, "Sp. Atk", "summary Sp. Atk label"),
+        (228, "Sp. Def", "summary Sp. Def label"),
+        (230, "Speed", "summary Speed label"),
+        (232, "Ability", "summary Ability label"),
+        (234, "/", "summary PP slash label"),
+        (256, "BATTLE MOVES", "summary moves title"),
+        (270, "PP", "summary PP label"),
+        (292, "{ALN_CENTER}Cancel", "summary move cancel button"),
+        (294, "POWER", "summary move power label"),
+        (296, "ACCURACY", "summary move accuracy label"),
+        (298, "CATEGORY", "summary move category label"),
+        (304, "SWITCH", "summary move switch command"),
+    ],
+}
+
+
 def parse_bytes(value: str) -> bytes:
     return bytes.fromhex(value)
 
@@ -114,6 +150,33 @@ def check_overlays(engine: Path) -> list[str]:
     return failures
 
 
+def check_text_sources(engine: Path) -> list[str]:
+    failures: list[str] = []
+    text_dir = engine / "data" / "text"
+    for archive_id, expected_entries in TEXT_EXPECTED.items():
+        text_path = text_dir / f"{archive_id}.txt"
+        if not text_path.is_file():
+            failures.append(f"missing text source: {text_path}")
+            continue
+
+        entries = text_path.read_text(encoding="utf-8").splitlines()
+        for entry_id, expected, label in expected_entries:
+            if entry_id >= len(entries):
+                failures.append(
+                    f"text {archive_id} entry {entry_id} {label}: "
+                    f"file has only {len(entries)} entries"
+                )
+                continue
+
+            actual = entries[entry_id]
+            if actual != expected:
+                failures.append(
+                    f"text {archive_id} entry {entry_id} {label}: "
+                    f"got {actual!r}, expected {expected!r}"
+                )
+    return failures
+
+
 def main() -> int:
     parser = argparse.ArgumentParser()
     parser.add_argument(
@@ -125,14 +188,14 @@ def main() -> int:
     args = parser.parse_args()
 
     engine = args.engine.resolve()
-    failures = check_arm9(engine) + check_overlays(engine)
+    failures = check_arm9(engine) + check_overlays(engine) + check_text_sources(engine)
     if failures:
-        print("Phase 1 stable hook validation failed:")
+        print("Phase 1 stable validation failed:")
         for failure in failures:
             print(f"- {failure}")
         return 1
 
-    print("Phase 1 stable hook validation passed.")
+    print("Phase 1 stable validation passed.")
     return 0
 
 

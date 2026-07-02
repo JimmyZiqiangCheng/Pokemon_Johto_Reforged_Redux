@@ -33,4 +33,6 @@ This document tracks the phase 1 QOL baseline.
 
 The previous `perfect_johto` build rolled back summary UI, party menu, expanded
 save, and wild post-processing hooks after runtime instability. Phase 1 keeps
-those systems disabled until they can be tested independently.
+those systems disabled until they can be tested independently. Party menu and
+summary text archives must preserve clean HeartGold message IDs so vanilla UI
+code reads the expected labels.

@@ -22,4 +22,6 @@ manual boot, early-game, party menu, summary, bag, PC, and first wild encounter
 checks.
 
 Run `python tools\johto_reforged\validate_phase1_stable_hooks.py` after phase 1
-builds to confirm the deferred UI/runtime hooks are restored to clean bytes.
+builds to confirm the deferred UI/runtime hooks are restored to clean bytes and
+that party menu and summary screen text IDs are still aligned to clean
+HeartGold.

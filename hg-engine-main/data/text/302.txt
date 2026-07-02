@@ -193,16 +193,3 @@ Jump
 Shiny Leaf
 {ALN_CENTER}Forget!
 {ALN_CENTER}Switch
-
-Attack↑
-Defense↑
-Sp. Atk↑
-Sp. Def↑
-Speed↑
-Attack↓
-Defense↓
-Sp. Atk↓
-Sp. Def↓
-Speed↓
-EV
-IV
