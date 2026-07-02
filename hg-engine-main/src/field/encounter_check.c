@@ -73,9 +73,9 @@ u8 LONG_CALL EncounterSlot_WildMonSlotRoll_Fishing(int rodType UNUSED)
         return 0;
     } else if (rnd < 70) {
         return 1;
-    } else if (rnd < 85) {
+    } else if (rnd < 86) {
         return 2;
-    } else if (rnd < 95) {
+    } else if (rnd < 96) {
         return 3;
     } else {
         return 4;

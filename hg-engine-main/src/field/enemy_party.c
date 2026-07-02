@@ -419,6 +419,290 @@ void MakeTrainerPokemonParty(struct BATTLE_PARAM *bp, int num, int heapID)
 
 extern u32 space_for_setmondata;
 
+#ifdef RANDOM_LEGENDARY_ROAMING_ENCOUNTERS
+typedef struct JohtoReforgedRandomLegendary {
+    u16 species;
+    u8 minBadges;
+    u8 tier;
+} JohtoReforgedRandomLegendary;
+
+enum {
+    JOHTO_REFORGED_RANDOM_LEGENDARY_TIER_NONE,
+    JOHTO_REFORGED_RANDOM_LEGENDARY_TIER_WEAKER,
+    JOHTO_REFORGED_RANDOM_LEGENDARY_TIER_COVER,
+};
+
+#define JOHTO_REFORGED_RANDOM_LEGENDARY_ROLL_DENOMINATOR 8000
+#define JOHTO_REFORGED_RANDOM_LEGENDARY_WEAKER_HITS 2
+#define JOHTO_REFORGED_RANDOM_LEGENDARY_COVER_HITS 1
+
+static const JohtoReforgedRandomLegendary sJohtoReforgedRandomLegendaryPool[] = {
+    { SPECIES_ARTICUNO, 4, JOHTO_REFORGED_RANDOM_LEGENDARY_TIER_WEAKER },
+    { SPECIES_ZAPDOS, 4, JOHTO_REFORGED_RANDOM_LEGENDARY_TIER_WEAKER },
+    { SPECIES_MOLTRES, 4, JOHTO_REFORGED_RANDOM_LEGENDARY_TIER_WEAKER },
+    { SPECIES_RAIKOU, 4, JOHTO_REFORGED_RANDOM_LEGENDARY_TIER_WEAKER },
+    { SPECIES_ENTEI, 4, JOHTO_REFORGED_RANDOM_LEGENDARY_TIER_WEAKER },
+    { SPECIES_SUICUNE, 4, JOHTO_REFORGED_RANDOM_LEGENDARY_TIER_WEAKER },
+    { SPECIES_REGIROCK, 5, JOHTO_REFORGED_RANDOM_LEGENDARY_TIER_WEAKER },
+    { SPECIES_REGICE, 5, JOHTO_REFORGED_RANDOM_LEGENDARY_TIER_WEAKER },
+    { SPECIES_REGISTEEL, 5, JOHTO_REFORGED_RANDOM_LEGENDARY_TIER_WEAKER },
+    { SPECIES_LATIAS, 5, JOHTO_REFORGED_RANDOM_LEGENDARY_TIER_WEAKER },
+    { SPECIES_LATIOS, 5, JOHTO_REFORGED_RANDOM_LEGENDARY_TIER_WEAKER },
+    { SPECIES_UXIE, 5, JOHTO_REFORGED_RANDOM_LEGENDARY_TIER_WEAKER },
+    { SPECIES_MESPRIT, 5, JOHTO_REFORGED_RANDOM_LEGENDARY_TIER_WEAKER },
+    { SPECIES_AZELF, 5, JOHTO_REFORGED_RANDOM_LEGENDARY_TIER_WEAKER },
+    { SPECIES_HEATRAN, 5, JOHTO_REFORGED_RANDOM_LEGENDARY_TIER_WEAKER },
+    { SPECIES_CRESSELIA, 5, JOHTO_REFORGED_RANDOM_LEGENDARY_TIER_WEAKER },
+    { SPECIES_MEWTWO, 6, JOHTO_REFORGED_RANDOM_LEGENDARY_TIER_COVER },
+    { SPECIES_LUGIA, 6, JOHTO_REFORGED_RANDOM_LEGENDARY_TIER_COVER },
+    { SPECIES_HO_OH, 6, JOHTO_REFORGED_RANDOM_LEGENDARY_TIER_COVER },
+    { SPECIES_KYOGRE, 6, JOHTO_REFORGED_RANDOM_LEGENDARY_TIER_COVER },
+    { SPECIES_GROUDON, 6, JOHTO_REFORGED_RANDOM_LEGENDARY_TIER_COVER },
+    { SPECIES_RAYQUAZA, 6, JOHTO_REFORGED_RANDOM_LEGENDARY_TIER_COVER },
+    { SPECIES_DIALGA, 6, JOHTO_REFORGED_RANDOM_LEGENDARY_TIER_COVER },
+    { SPECIES_PALKIA, 6, JOHTO_REFORGED_RANDOM_LEGENDARY_TIER_COVER },
+    { SPECIES_GIRATINA, 6, JOHTO_REFORGED_RANDOM_LEGENDARY_TIER_COVER },
+    { SPECIES_REGIGIGAS, 6, JOHTO_REFORGED_RANDOM_LEGENDARY_TIER_COVER },
+    { SPECIES_MEW, 16, JOHTO_REFORGED_RANDOM_LEGENDARY_TIER_WEAKER },
+    { SPECIES_CELEBI, 16, JOHTO_REFORGED_RANDOM_LEGENDARY_TIER_WEAKER },
+    { SPECIES_JIRACHI, 16, JOHTO_REFORGED_RANDOM_LEGENDARY_TIER_WEAKER },
+    { SPECIES_DEOXYS, 16, JOHTO_REFORGED_RANDOM_LEGENDARY_TIER_WEAKER },
+    { SPECIES_PHIONE, 16, JOHTO_REFORGED_RANDOM_LEGENDARY_TIER_WEAKER },
+    { SPECIES_MANAPHY, 16, JOHTO_REFORGED_RANDOM_LEGENDARY_TIER_WEAKER },
+    { SPECIES_DARKRAI, 16, JOHTO_REFORGED_RANDOM_LEGENDARY_TIER_WEAKER },
+    { SPECIES_SHAYMIN, 16, JOHTO_REFORGED_RANDOM_LEGENDARY_TIER_WEAKER },
+    { SPECIES_ARCEUS, 16, JOHTO_REFORGED_RANDOM_LEGENDARY_TIER_COVER },
+};
+
+static u8 JohtoReforged_CountBadges(void *saveData)
+{
+    u8 badgeCount = 0;
+    struct PlayerProfile *profile;
+
+    if (saveData == NULL) {
+        saveData = SaveBlock2_get();
+    }
+    if (saveData == NULL) {
+        return 0;
+    }
+
+    profile = Sav2_PlayerData_GetProfileAddr(saveData);
+    for (u8 i = 0; i < 16; i++) {
+        if (PlayerProfile_TestBadgeFlag(profile, i) == TRUE) {
+            badgeCount++;
+        }
+    }
+    return badgeCount;
+}
+
+static u8 JohtoReforged_RandomLegendaryRollTier(u8 badgeCount)
+{
+    u16 roll;
+
+    if (badgeCount < 4) {
+        return JOHTO_REFORGED_RANDOM_LEGENDARY_TIER_NONE;
+    }
+
+    roll = gf_rand() % JOHTO_REFORGED_RANDOM_LEGENDARY_ROLL_DENOMINATOR;
+    if (badgeCount >= 6 && roll < JOHTO_REFORGED_RANDOM_LEGENDARY_COVER_HITS) {
+        return JOHTO_REFORGED_RANDOM_LEGENDARY_TIER_COVER;
+    }
+    if (badgeCount >= 6) {
+        roll -= JOHTO_REFORGED_RANDOM_LEGENDARY_COVER_HITS;
+    }
+    if (roll < JOHTO_REFORGED_RANDOM_LEGENDARY_WEAKER_HITS) {
+        return JOHTO_REFORGED_RANDOM_LEGENDARY_TIER_WEAKER;
+    }
+    return JOHTO_REFORGED_RANDOM_LEGENDARY_TIER_NONE;
+}
+
+static u8 JohtoReforged_RandomLegendaryLevel(u8 badgeCount, u8 mapLevel)
+{
+    u8 minLevel;
+    u8 maxLevel;
+    u8 level = mapLevel + 2 + badgeCount / 4;
+
+    if (badgeCount < 5) {
+        minLevel = 25;
+        maxLevel = 32;
+    } else if (badgeCount < 6) {
+        minLevel = 32;
+        maxLevel = 38;
+    } else if (badgeCount < 8) {
+        minLevel = 38;
+        maxLevel = 45;
+    } else if (badgeCount < 12) {
+        minLevel = 45;
+        maxLevel = 55;
+    } else if (badgeCount < 16) {
+        minLevel = 50;
+        maxLevel = 60;
+    } else {
+        minLevel = 55;
+        maxLevel = 70;
+    }
+
+    if (level < minLevel) {
+        return minLevel;
+    }
+    if (level > maxLevel) {
+        return maxLevel;
+    }
+    return level;
+}
+
+static void JohtoReforged_SetRandomLegendaryFleeMove(struct PartyPokemon *mon)
+{
+    u16 move = MOVE_TELEPORT;
+    u8 pp = 20;
+
+    if (mon == NULL) {
+        return;
+    }
+
+    SetMonData(mon, MON_DATA_MOVE4, &move);
+    SetMonData(mon, MON_DATA_MOVE4PP, &pp);
+}
+
+static BOOL JohtoReforged_TryRandomLegendary(
+    EncounterInfo *encounterInfo,
+    struct PartyPokemon *encounterPartyPokemon,
+    struct BATTLE_PARAM *encounterBattleParam)
+{
+    u8 badgeCount;
+    u8 tier;
+    u16 candidates[NELEMS(sJohtoReforgedRandomLegendaryPool)];
+    u8 candidateCount = 0;
+    u16 species;
+    u8 level;
+    u32 blockedBattleTypes = BATTLE_TYPE_TRAINER
+                           | BATTLE_TYPE_SAFARI
+                           | BATTLE_TYPE_ROAMER
+                           | BATTLE_TYPE_PAL_PARK
+                           | BATTLE_TYPE_CATCHING_DEMO
+                           | BATTLE_TYPE_BUG_CONTEST;
+
+    if (encounterInfo == NULL || encounterPartyPokemon == NULL || encounterBattleParam == NULL) {
+        return FALSE;
+    }
+    if (encounterInfo->isEgg != 0 || (encounterBattleParam->fight_type & blockedBattleTypes) != 0) {
+        return FALSE;
+    }
+
+    badgeCount = JohtoReforged_CountBadges(encounterBattleParam->savedata);
+    tier = JohtoReforged_RandomLegendaryRollTier(badgeCount);
+    if (tier == JOHTO_REFORGED_RANDOM_LEGENDARY_TIER_NONE) {
+        return FALSE;
+    }
+
+    for (u8 i = 0; i < NELEMS(sJohtoReforgedRandomLegendaryPool); i++) {
+        if (badgeCount >= sJohtoReforgedRandomLegendaryPool[i].minBadges
+            && tier == sJohtoReforgedRandomLegendaryPool[i].tier) {
+            candidates[candidateCount++] = sJohtoReforgedRandomLegendaryPool[i].species;
+        }
+    }
+    if (candidateCount == 0) {
+        return FALSE;
+    }
+
+    species = candidates[gf_rand() % candidateCount];
+    level = JohtoReforged_RandomLegendaryLevel(badgeCount, GetMonData(encounterPartyPokemon, MON_DATA_LEVEL, NULL));
+    PokeParaSet(encounterPartyPokemon, species, level, 32, FALSE, 0, 0, 0);
+    JohtoReforged_SetRandomLegendaryFleeMove(encounterPartyPokemon);
+    encounterInfo->level = level;
+    space_for_setmondata = 0;
+    return TRUE;
+}
+#endif // RANDOM_LEGENDARY_ROAMING_ENCOUNTERS
+
+#ifdef NATURAL_WILD_HIDDEN_ABILITIES
+enum {
+    WILD_ABILITY_SLOT_1,
+    WILD_ABILITY_SLOT_2,
+    WILD_ABILITY_SLOT_HIDDEN,
+};
+
+static void SetWildMonHiddenAbilityBit(struct PartyPokemon *mon, BOOL enabled)
+{
+    u8 flags = GetMonData(mon, MON_DATA_RESERVED_113, NULL);
+
+    if (enabled == TRUE) {
+        flags |= DUMMY_P2_1_HIDDEN_ABILITY_MASK;
+    } else {
+        flags &= ~DUMMY_P2_1_HIDDEN_ABILITY_MASK;
+    }
+    SetMonData(mon, MON_DATA_RESERVED_113, &flags);
+}
+
+static void SetWildMonSwapAbilitySlotBit(struct PartyPokemon *mon, BOOL enabled)
+{
+    u16 flags = GetMonData(mon, MON_DATA_RESERVED_114, NULL);
+
+    if (enabled == TRUE) {
+        flags |= DUMMY_P2_2_CHANGE_ABILITY_SLOT;
+    } else {
+        flags &= ~DUMMY_P2_2_CHANGE_ABILITY_SLOT;
+    }
+    SetMonData(mon, MON_DATA_RESERVED_114, &flags);
+}
+
+static void SetWildNaturalAbility(struct PartyPokemon *mon)
+{
+    u8 slots[3];
+    u8 slotCount = 0;
+    u8 selectedSlot;
+    u16 species;
+    u32 form;
+    u32 pid;
+    u16 ability1;
+    u16 ability2;
+    u16 hiddenAbility;
+
+    if (mon == NULL) {
+        return;
+    }
+
+    species = GetMonData(mon, MON_DATA_SPECIES, NULL);
+    if (species == SPECIES_NONE || species == SPECIES_EGG || species == SPECIES_BAD_EGG) {
+        return;
+    }
+
+    form = GetMonData(mon, MON_DATA_FORM, NULL);
+    pid = GetMonData(mon, MON_DATA_PERSONALITY, NULL);
+    ability1 = PokeFormNoPersonalParaGet(species, form, PERSONAL_ABILITY_1);
+    ability2 = PokeFormNoPersonalParaGet(species, form, PERSONAL_ABILITY_2);
+    hiddenAbility = GetMonHiddenAbility(species, form);
+
+    if (ability1 != ABILITY_NONE) {
+        slots[slotCount++] = WILD_ABILITY_SLOT_1;
+    }
+    if (ability2 != ABILITY_NONE) {
+        slots[slotCount++] = WILD_ABILITY_SLOT_2;
+    }
+    if (hiddenAbility != ABILITY_NONE) {
+        slots[slotCount++] = WILD_ABILITY_SLOT_HIDDEN;
+    }
+    if (slotCount == 0) {
+        return;
+    }
+
+    selectedSlot = slots[gf_rand() % slotCount];
+
+    SetWildMonHiddenAbilityBit(mon, FALSE);
+    SetWildMonSwapAbilitySlotBit(mon, FALSE);
+
+    if (selectedSlot == WILD_ABILITY_SLOT_HIDDEN) {
+        SetWildMonHiddenAbilityBit(mon, TRUE);
+    } else if (selectedSlot == WILD_ABILITY_SLOT_2) {
+        SetWildMonSwapAbilitySlotBit(mon, (pid & 1) == 0);
+    } else {
+        SetWildMonSwapAbilitySlotBit(mon, (pid & 1) != 0);
+    }
+
+    ResetPartyPokemonAbility(mon);
+}
+#endif // NATURAL_WILD_HIDDEN_ABILITIES
+
 /**
  *  @brief add a PartyPokemon to the "wild battler"'s party
  *
@@ -434,10 +718,15 @@ BOOL LONG_CALL AddWildPartyPokemon(int inTarget, EncounterInfo *encounterInfo, s
     u8 change_form = 0;
     u8 form_no;
     u16 species;
+    BOOL forcedHiddenAbility = FALSE;
 
     if (encounterInfo->isEgg == 0 && encounterInfo->ability == ABILITY_COMPOUND_EYES) {
         range = 1;
     }
+
+#ifdef RANDOM_LEGENDARY_ROAMING_ENCOUNTERS
+    JohtoReforged_TryRandomLegendary(encounterInfo, encounterPartyPokemon, encounterBattleParam);
+#endif // RANDOM_LEGENDARY_ROAMING_ENCOUNTERS
 
     species = GetMonData(encounterPartyPokemon, MON_DATA_SPECIES, NULL);
 
@@ -460,6 +749,7 @@ BOOL LONG_CALL AddWildPartyPokemon(int inTarget, EncounterInfo *encounterInfo, s
         SET_MON_HIDDEN_ABILITY_BIT(encounterPartyPokemon)
         ClearScriptFlag(HIDDEN_ABILITIES_FLAG);
         ResetPartyPokemonAbility(encounterPartyPokemon);
+        forcedHiddenAbility = TRUE;
     }
 
     if (change_form) {
@@ -468,6 +758,12 @@ BOOL LONG_CALL AddWildPartyPokemon(int inTarget, EncounterInfo *encounterInfo, s
         ResetPartyPokemonAbility(encounterPartyPokemon);
         InitBoxMonMoveset(&encounterPartyPokemon->box);
     }
+
+#ifdef NATURAL_WILD_HIDDEN_ABILITIES
+    if (encounterInfo->isEgg == 0 && forcedHiddenAbility == FALSE) {
+        SetWildNaturalAbility(encounterPartyPokemon);
+    }
+#endif // NATURAL_WILD_HIDDEN_ABILITIES
 
     ChangeToBattleForm(encounterPartyPokemon);
 

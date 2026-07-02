@@ -64,6 +64,14 @@ static void UpdatePokemonData(struct SummaryState *summary, u8 mode)
 #define GREEN          (COLOR(9, 10, 0))
 #define WHITE          (COLOR(0xE, 0xF, 0))
 
+// Runtime archive 302 IDs after msgenc processing, not physical source rows.
+#define SUMMARY_TEXT_HP_LABEL            195
+#define SUMMARY_TEXT_ATTACK_LABEL        196
+#define SUMMARY_TEXT_ATTACK_UP_LABEL     201
+#define SUMMARY_TEXT_ATTACK_DOWN_LABEL   206
+#define SUMMARY_TEXT_EV_LABEL            211
+#define SUMMARY_TEXT_IV_LABEL            212
+
 static s8 sNatureStatEffects[25][6] = {
     // atk, def, spatk, spdef, speed
     {  0,  0,  0,  0,  0,  0  },    // Hardy
@@ -124,24 +132,24 @@ void Summary_ColorizeStatScreen(struct SummaryState *summary, u32 mode)
         FillWindowPixelBuffer(&summary->defnWindows[0xF+i], 0);
         if (i != 0) // print a possibly colored text and append +/-
         {
-            u32 msgId = 110;
+            u32 msgId = SUMMARY_TEXT_ATTACK_LABEL - 1;
             u32 color = WHITE;
             if (sNatureStatEffects[nature][i] > 0) {
-                msgId = 196-1; // Stat+
+                msgId = SUMMARY_TEXT_ATTACK_UP_LABEL - 1;
                 color = RED_INVERT;
             } else if (sNatureStatEffects[nature][i] < 0) {
-                msgId = 201-1; // Stat-
+                msgId = SUMMARY_TEXT_ATTACK_DOWN_LABEL - 1;
                 color = BLUE_INVERT;
             }
 
             //Summary_PrintStatStringAccountForStat(summary, 0xF+i, msgId+i, i-1, JUSTIFY_LEFT);
             Summary_PrintStringGeneric(summary, 0xF+i, msgId+i, color, JUSTIFY_LEFT);
-        } else if (mode == 0) { // raw stat
-            Summary_PrintStringGeneric(summary, 0xF, 110, WHITE, JUSTIFY_LEFT);
+        } else if (mode == 0) {
+            Summary_PrintStringGeneric(summary, 0xF, SUMMARY_TEXT_HP_LABEL, WHITE, JUSTIFY_LEFT);
         } else if (mode == 1) { // ev's
-            Summary_PrintStringGeneric(summary, 0xF, 206, WHITE, JUSTIFY_LEFT);
+            Summary_PrintStringGeneric(summary, 0xF, SUMMARY_TEXT_EV_LABEL, WHITE, JUSTIFY_LEFT);
         } else {                // iv's
-            Summary_PrintStringGeneric(summary, 0xF, 207, WHITE, JUSTIFY_LEFT);
+            Summary_PrintStringGeneric(summary, 0xF, SUMMARY_TEXT_IV_LABEL, WHITE, JUSTIFY_LEFT);
         }
         CopyWindowToVram(&summary->defnWindows[0xF+i]);
     }

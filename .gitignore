@@ -5,12 +5,23 @@
 *.bak
 *.tmp
 *.log
+*.pyc
+__pycache__/
+.venv/
 
 hg-engine-main/base/
 hg-engine-main/build/
 hg-engine-main/.venv/
+hg-engine-main/data/generated/
+hg-engine-main/armips/include/generated/
+hg-engine-main/include/constants/generated/
+hg-engine-main/narc/
+hg-engine-main/offsets.ini
 hg-engine-main/rom.nds
 hg-engine-main/test.nds
+hg-engine-main/tools/source/**/.deps/
+hg-engine-main/tools/source/**/*.o
+hg-engine-main/tools/source/**/*.d
 hg-engine-main/tools/*.exe
 hg-engine-main/tools/adpcm-xq
 hg-engine-main/tools/armips

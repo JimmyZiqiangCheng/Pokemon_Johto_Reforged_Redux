@@ -138,11 +138,17 @@ arm9 0207C288 38 B5 05 1C 4C 48 00 21
 
 #endif
 
+#ifndef IMPLEMENT_GENERATIONS_WILD_MON_HOOK
 #ifndef IMPLEMENT_WILD_MON_POSTPROCESSING_HOOK
+#ifndef NATURAL_WILD_HIDDEN_ABILITIES
+#ifndef RANDOM_LEGENDARY_ROAMING_ENCOUNTERS
 
 # restore first-wild-encounter post-processing hook while disabled
 0002 0224855C F8 B5 0D 1C 07 1C 68 7B 14 1C 1E 1C 00 28 04 D1 A8 7B 0E 28 01 D1 01 22
 
+#endif
+#endif
+#endif
 #endif
 
 

@@ -14,15 +14,16 @@ This document tracks the phase 1 QOL baseline.
 - Updated vitamin EV caps through `UPDATE_VITAMIN_EV_CAPS`.
 - Disabled overworld poison damage through `UPDATE_OVERWORLD_POISON`.
 - Anti-piracy patching through `APPLY_ANTIPIRACY`.
+- EV/IV summary viewer through `IMPLEMENT_NEW_EV_IV_VIEWER`, using appended
+  runtime summary text IDs 195-212 so vanilla summary labels stay aligned.
 
 ## Deferred
 
-- EV/IV summary viewer, nature stat arrows/colors, and mint-aware nature stat
-  hooks.
+- Separate mint-aware nature stat override hooks.
 - Expanded PC boxes and expanded bag pockets.
 - Custom party-use behavior for mints, Ability Capsule, Ability Patch, IV
   candies, Max Candy, and repeat-use candies.
-- Natural wild hidden ability/form post-processing.
+- Broader wild form post-processing.
 - Running Shoes script edits and Cherrygrove Guide skip.
 - AutoRun or toggle-run.
 - Fast Surf.
@@ -35,7 +36,9 @@ The previous `perfect_johto` build rolled back summary UI, party menu, expanded
 save, and wild post-processing hooks after runtime instability. Phase 1 keeps
 those systems disabled until they can be tested independently. Party menu and
 summary text archives must preserve clean HeartGold message IDs so vanilla UI
-code reads the expected labels. Battle text archive 197 must also preserve
+code reads the expected labels. The EV/IV viewer is allowed only because its
+extra labels are appended to summary archive 302 instead of shifting or
+reusing vanilla labels. Battle text archive 197 must also preserve
 clean HeartGold IDs for the command menu and move PP labels. Save/general text
 archive 40 must preserve clean HeartGold IDs for the save prompt and Hall of
 Fame warning.

@@ -28,6 +28,7 @@ BOOL CanUseNectar(struct PartyPokemon *pp, u16 nectar);
 u32 CanUseDNASplicersGrabSplicerPos(struct PartyPokemon *pp, struct Party *party);
 u32 CanUseAbilityCapsule(struct PartyPokemon *pp);
 u32 CanUseAbilityPatch(struct PartyPokemon *pp);
+BOOL TryApplyIvCandy(struct PartyPokemon *pp, u16 itemId, u32 *message);
 BOOL CanUseRotomCatalog(struct PartyPokemon *pp);
 void PartyMenu_ShowRotomCatalogList(struct PartyMenu *partyMenu);
 
@@ -60,6 +61,27 @@ u16 NatureToMintItem[] = {
     [NATURE_JOLLY] = ITEM_JOLLY_MINT,
     [NATURE_NAIVE] = ITEM_NAIVE_MINT,
     [NATURE_SERIOUS] = ITEM_SERIOUS_MINT,
+};
+
+#define PARTY_MENU_SIGNAL_IV_CANDY_HP      227
+#define PARTY_MENU_SIGNAL_IV_CANDY_ATK     228
+#define PARTY_MENU_SIGNAL_IV_CANDY_DEF     229
+#define PARTY_MENU_SIGNAL_IV_CANDY_SPATK   230
+#define PARTY_MENU_SIGNAL_IV_CANDY_SPDEF   231
+#define PARTY_MENU_SIGNAL_IV_CANDY_SPEED   232
+#define PARTY_MENU_SIGNAL_MAX_CANDY        233
+
+const struct IvCandyData {
+    u16 itemId;
+    u16 monData;
+    u16 message;
+} sIvCandyData[] = {
+    { ITEM_HEALTH_CANDY, MON_DATA_HP_IV, PARTY_MENU_SIGNAL_IV_CANDY_HP },
+    { ITEM_MIGHTY_CANDY, MON_DATA_ATK_IV, PARTY_MENU_SIGNAL_IV_CANDY_ATK },
+    { ITEM_TOUGH_CANDY, MON_DATA_DEF_IV, PARTY_MENU_SIGNAL_IV_CANDY_DEF },
+    { ITEM_SMART_CANDY, MON_DATA_SPATK_IV, PARTY_MENU_SIGNAL_IV_CANDY_SPATK },
+    { ITEM_COURAGE_CANDY, MON_DATA_SPDEF_IV, PARTY_MENU_SIGNAL_IV_CANDY_SPDEF },
+    { ITEM_QUICK_CANDY, MON_DATA_SPEED_IV, PARTY_MENU_SIGNAL_IV_CANDY_SPEED },
 };
 
 int __attribute__((section (".init"))) PartyMenu_HandleUseItemOnMon_Internal(struct PartyMenu *partyMenu)
@@ -117,6 +139,7 @@ int __attribute__((section (".init"))) PartyMenu_HandleUseItemOnMon_Internal(str
 u32 UseItemMonAttrChangeCheck(struct PartyMenu *wk, void *dat)
 {
     struct PartyPokemon *pp = Party_GetMonByIndex(wk->args->party, wk->partyMonIndex);
+    u32 ivCandyMessage;
     partyMenuSignal = 0; // ensure it is 0 before potentially queuing up a different message
 
     // handle shaymin
@@ -266,6 +289,54 @@ u32 UseItemMonAttrChangeCheck(struct PartyMenu *wk, void *dat)
         sys_FreeMemoryEz(dat);
         PokeList_FormDemoOverlayLoad(wk);
         return TRUE;
+    }
+
+    // handle IV candies
+
+    if (TryApplyIvCandy(pp, wk->args->itemId, &ivCandyMessage) == TRUE) {
+        void *bag = Sav2_Bag_get(SaveBlock2_get());
+        partyMenuSignal = ivCandyMessage;
+        wk->args->species = GetMonData(pp, MON_DATA_FORM, NULL); // no form change
+        RecalcPartyPokemonStats(pp);
+        Bag_TakeItem(bag, wk->args->itemId, 1, 11);
+        sys_FreeMemoryEz(dat);
+        PokeList_FormDemoOverlayLoad(wk);
+        return TRUE;
+    }
+
+    return FALSE;
+}
+
+BOOL TryApplyIvCandy(struct PartyPokemon *pp, u16 itemId, u32 *message)
+{
+    u32 maxIvs = MAX_IVS;
+    u32 i;
+
+    if (itemId == ITEM_MAX_CANDY) {
+        BOOL changed = FALSE;
+
+        for (i = MON_DATA_HP_IV; i <= MON_DATA_SPDEF_IV; i++) {
+            if (GetMonData(pp, i, NULL) < MAX_IVS) {
+                SetMonData(pp, i, &maxIvs);
+                changed = TRUE;
+            }
+        }
+
+        if (changed == TRUE) {
+            *message = PARTY_MENU_SIGNAL_MAX_CANDY;
+        }
+        return changed;
+    }
+
+    for (i = 0; i < NELEMS(sIvCandyData); i++) {
+        if (itemId == sIvCandyData[i].itemId) {
+            if (GetMonData(pp, sIvCandyData[i].monData, NULL) >= MAX_IVS) {
+                return FALSE;
+            }
+            SetMonData(pp, sIvCandyData[i].monData, &maxIvs);
+            *message = sIvCandyData[i].message;
+            return TRUE;
+        }
     }
 
     return FALSE;

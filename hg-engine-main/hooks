@@ -192,8 +192,20 @@ arm9 SetBoxMonAbility 080722DC 1
 arm9 GiveMon 020541DC 5
 #0224855C
 #need to use this to UpdatePassiveForms, reinitialize the moveset, set the hidden ability, recalc stats
+#ifdef IMPLEMENT_GENERATIONS_WILD_MON_HOOK
+0002 AddWildPartyPokemon 0224855C
+#else
 #ifdef IMPLEMENT_WILD_MON_POSTPROCESSING_HOOK
 0002 AddWildPartyPokemon 0224855C
+#else
+#ifdef NATURAL_WILD_HIDDEN_ABILITIES
+0002 AddWildPartyPokemon 0224855C
+#else
+#ifdef RANDOM_LEGENDARY_ROAMING_ENCOUNTERS
+0002 AddWildPartyPokemon 0224855C
+#endif
+#endif
+#endif
 #endif
 
 arm9 ScrCmd_GiveEgg 0204D248 1
