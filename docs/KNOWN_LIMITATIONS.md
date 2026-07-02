@@ -10,6 +10,8 @@
 - Mega Evolution and Primal Reversion are disabled.
 - Custom party item-use hooks are disabled.
 - Wild Pokemon post-processing hooks are disabled.
+- HG-engine-added save/general text is deferred where it shifts vanilla save UI
+  message IDs.
 - HG-engine-added battle text is deferred where it shifts vanilla battle UI
   message IDs.
 - Mart and item economy changes are not included.
@@ -25,5 +27,5 @@ checks.
 
 Run `python tools\johto_reforged\validate_phase1_stable_hooks.py` after phase 1
 builds to confirm the deferred UI/runtime hooks are restored to clean bytes and
-that battle command, move PP, party menu, and summary screen text IDs are still
-aligned to clean HeartGold.
+that save screen, battle command, move PP, party menu, and summary screen text
+IDs are still aligned to clean HeartGold.

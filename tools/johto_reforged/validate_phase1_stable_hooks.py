@@ -62,6 +62,18 @@ OVERLAY_EXPECTED = [
 
 
 TEXT_EXPECTED = {
+    40: [
+        (26, "Would you like to save the game? {YESNO 0}", "save confirmation prompt"),
+        (28, "There is already a saved file.\\nIs it OK to overwrite it? {YESNO 0}", "save overwrite prompt"),
+        (30, "Saving...\\nDon’t turn off the power.", "save in-progress text"),
+        (32, "{STRVAR_1 3, 0, 0} saved the game.", "save complete text"),
+        (36, "Save error.", "save error text"),
+        (40, "There is already a saved game file.\\nIt is impossible to save.\\rPlease refer to the Instruction\\nBooklet for details.\\rPress Up + SELECT + B Button on\\nthe title screen if you want to erase\\fthe current saved game file.", "save blocked text"),
+        (42, "Saving a lot of data...\\nDon’t turn off the power.", "save large-data text"),
+        (162, "Would you like to save the game?", "save screen prompt"),
+        (164, "There is already a saved file.\\nIs it OK to overwrite it?", "save screen overwrite prompt"),
+        (188, "Your Hall of Fame data is corrupted.\\rIt will be fixed if you enter the\\nHall of Fame again.\\r", "Hall of Fame corruption warning"),
+    ],
     197: [
         (1842, "What will {STRVAR_1 1, 0, 0} do?{YESNO 0}", "battle prompt"),
         (1848, "FIGHT", "battle command fight label"),
@@ -171,6 +183,8 @@ def check_text_sources(engine: Path) -> list[str]:
     text_dir = engine / "data" / "text"
     for archive_id, expected_entries in TEXT_EXPECTED.items():
         text_path = text_dir / f"{archive_id}.txt"
+        if not text_path.is_file():
+            text_path = text_dir / f"{archive_id:03}.txt"
         if not text_path.is_file():
             failures.append(f"missing text source: {text_path}")
             continue

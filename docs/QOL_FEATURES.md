@@ -36,4 +36,6 @@ save, and wild post-processing hooks after runtime instability. Phase 1 keeps
 those systems disabled until they can be tested independently. Party menu and
 summary text archives must preserve clean HeartGold message IDs so vanilla UI
 code reads the expected labels. Battle text archive 197 must also preserve
-clean HeartGold IDs for the command menu and move PP labels.
+clean HeartGold IDs for the command menu and move PP labels. Save/general text
+archive 40 must preserve clean HeartGold IDs for the save prompt and Hall of
+Fame warning.

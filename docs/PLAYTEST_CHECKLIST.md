@@ -29,6 +29,8 @@ Use this checklist before marking a phase release stable.
   are sane.
 - Battle move buttons show PP values and `PP`, not `BAIT`, `Quit`, or move
   deletion prompt text.
+- Save screen prompt asks to save the game and does not show the Hall of Fame
+  corruption warning.
 - First wild encounter does not freeze.
 - Bag item labels are sane.
 - PC storage opens and behaves as 18-box vanilla storage.
