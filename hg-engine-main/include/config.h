@@ -82,6 +82,11 @@
 // Deferred from phase 1: the abandoned build showed summary UI hook instability.
 // #define IMPLEMENT_NEW_EV_IV_VIEWER
 
+// Deferred from phase 1: these summary/nature support patches touch the same
+// stat-page code path as the unstable EV/IV viewer.
+// #define IMPLEMENT_SUMMARY_NATURE_UI_OVERRIDES
+// #define IMPLEMENT_MINT_NATURE_STAT_OVERRIDES
+
 // Deferred from phase 1: these party menu hooks caused unstable labels in the
 // abandoned build and are not needed for the initial QOL baseline.
 // #define IMPLEMENT_PARTY_CONTEXT_MENU_UI_OVERRIDES

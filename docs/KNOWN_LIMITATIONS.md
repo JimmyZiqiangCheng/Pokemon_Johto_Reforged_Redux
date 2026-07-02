@@ -4,6 +4,8 @@
 
 - EV/IV summary viewer is disabled due known UI hook instability in the
   abandoned project.
+- Summary nature arrows/colors and mint-aware nature stat hooks are disabled
+  because they touch the same stat-page path as the unstable EV/IV viewer.
 - Save expansion, expanded PC boxes, and expanded item pockets are disabled.
 - Mega Evolution and Primal Reversion are disabled.
 - Custom party item-use hooks are disabled.
@@ -18,3 +20,6 @@
 Static build success does not prove runtime stability. Each release still needs
 manual boot, early-game, party menu, summary, bag, PC, and first wild encounter
 checks.
+
+Run `python tools\johto_reforged\validate_phase1_stable_hooks.py` after phase 1
+builds to confirm the deferred UI/runtime hooks are restored to clean bytes.

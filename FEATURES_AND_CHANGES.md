@@ -1,7 +1,7 @@
 # Pokemon Johto Reforged - Features and Changes
 
-Document version: v2026.07.01-initial-qol
-Last updated: 2026-07-01
+Document version: v2026.07.02-ui-rollback
+Last updated: 2026-07-02
 
 This project restarts Pokemon Johto Reforged from a smaller, safer baseline.
 The abandoned `perfect_johto` project remains the design reference, but changes
@@ -21,7 +21,7 @@ will be reintroduced one phase at a time with a build and release at each step.
 
 | Phase | Scope | Status |
 | --- | --- | --- |
-| 1 | Initial HG-engine build with important low-risk QOL toggles only | Complete in `v0.1.0-initial-qol` |
+| 1 | Initial HG-engine build with important low-risk QOL toggles only | Complete in `v0.1.1-ui-rollback` |
 | 2 | Pokemon stats, ability, move, and typing changes | Planned |
 | 3 | Wild encounter table changes | Planned |
 | 4 | Trainer updates | Planned |
@@ -48,6 +48,7 @@ Deferred from phase 1:
 - Save expansion, expanded PC boxes, and expanded item pockets.
 - Mega Evolution and Primal Reversion.
 - EV/IV summary viewer and nature stat UI.
+- Mint/nature stat override hooks.
 - Party item-use overrides for custom candies, mints, Ability Capsule, and
   Ability Patch.
 - Wild Pokemon post-processing hooks for natural hidden ability/form rewrites.
@@ -67,11 +68,18 @@ Deferred from phase 1:
 
 ## Current Release
 
-- Version: `v0.1.0-initial-qol`
-- Folder: `release/Pokemon-JohtoReforged-v0.1.0-initial-qol/`
+- Version: `v0.1.1-ui-rollback`
+- Folder: `release/Pokemon-JohtoReforged-v0.1.1-ui-rollback/`
 - Clean ROM SHA-256:
   `65F02A56842B75AA92D775D56D657A56FE3FA993550B04DC20704AB82D760105`
 - Patched ROM SHA-256:
-  `FFA25BA576C465083A69AEE9B5C229A20BB8028D6C8A434745111F3F0404FC16`
+  `900B2A7935592D46081583EA0F949774C3CE08018DAB660F6D3A14C8E62DF923`
 - Xdelta SHA-256:
-  `14F6F8C009AA104BA559F96F33CBF1A1D3F8F8B0CD6BBDC0A1FFC283BCCF9C61`
+  `D97369F176C05D0D4137E7FE9EEFF55B4E9678929E2C9B97956AA100B52667E7`
+
+## Release History
+
+| Version | Notes |
+| --- | --- |
+| `v0.1.1-ui-rollback` | Supersedes `v0.1.0`; restores clean HeartGold bytes for deferred summary UI, nature stat, party context, party item-use, and wild post-processing hook sites after party/summary text corruption was reported. |
+| `v0.1.0-initial-qol` | Initial HG-engine QOL baseline; superseded because some deferred support patches still affected summary and party UI code paths. |

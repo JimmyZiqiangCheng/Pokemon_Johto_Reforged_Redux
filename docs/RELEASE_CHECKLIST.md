@@ -11,6 +11,8 @@
 
 - Run the HG-engine build from `hg-engine-main`.
 - Confirm `hg-engine-main/test.nds` is produced.
+- Run `python tools\johto_reforged\validate_phase1_stable_hooks.py` for phase 1
+  releases.
 - Generate a versioned release folder under `release/`.
 - Generate an xdelta patch from the clean ROM to the patched ROM.
 - Generate `SHA256SUMS.txt`.

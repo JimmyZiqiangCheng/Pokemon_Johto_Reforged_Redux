@@ -41,11 +41,20 @@ only.
 
 ## Current Release
 
-`release/Pokemon-JohtoReforged-v0.1.0-initial-qol/`
+`release/Pokemon-JohtoReforged-v0.1.1-ui-rollback/`
 
 - Patched ROM SHA-256:
-  `FFA25BA576C465083A69AEE9B5C229A20BB8028D6C8A434745111F3F0404FC16`
+  `900B2A7935592D46081583EA0F949774C3CE08018DAB660F6D3A14C8E62DF923`
 - Xdelta SHA-256:
-  `14F6F8C009AA104BA559F96F33CBF1A1D3F8F8B0CD6BBDC0A1FFC283BCCF9C61`
+  `D97369F176C05D0D4137E7FE9EEFF55B4E9678929E2C9B97956AA100B52667E7`
 - Patch verification: xdelta rebuild from the clean ROM matched the packaged
   patched ROM hash.
+
+## Validation
+
+After each phase 1 build, run:
+
+`python tools\johto_reforged\validate_phase1_stable_hooks.py`
+
+This checks that deferred summary UI, nature stat, party menu, party item-use,
+and wild post-processing hook sites match clean HeartGold bytes.

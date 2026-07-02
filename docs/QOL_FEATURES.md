@@ -17,7 +17,8 @@ This document tracks the phase 1 QOL baseline.
 
 ## Deferred
 
-- EV/IV summary viewer and nature stat arrows.
+- EV/IV summary viewer, nature stat arrows/colors, and mint-aware nature stat
+  hooks.
 - Expanded PC boxes and expanded bag pockets.
 - Custom party-use behavior for mints, Ability Capsule, Ability Patch, IV
   candies, Max Candy, and repeat-use candies.
