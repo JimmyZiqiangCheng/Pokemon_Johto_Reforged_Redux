@@ -62,6 +62,22 @@ OVERLAY_EXPECTED = [
 
 
 TEXT_EXPECTED = {
+    197: [
+        (1842, "What will {STRVAR_1 1, 0, 0} do?{YESNO 0}", "battle prompt"),
+        (1848, "FIGHT", "battle command fight label"),
+        (1850, "BAG", "battle command bag label"),
+        (1852, "POKéMON", "battle command Pokemon label"),
+        (1854, "RUN", "battle command run label"),
+        (1862, "BALL", "Safari command ball label"),
+        (1864, "BAIT", "Safari command bait label"),
+        (1866, "MUD", "Safari command mud label"),
+        (1874, "{STRVAR_1 51, 0, 0}/{STRVAR_1 51, 1, 0}", "battle move PP value"),
+        (1876, "PP", "battle move PP label"),
+        (1878, "Which move should\\nbe forgotten?", "battle move-forget prompt"),
+        (1886, "Quit the battle?{YESNO 0}", "battle quit prompt"),
+        (1900, "SAFARI BALLS", "Safari ball count label"),
+        (1902, "Left: {STRVAR_1 51, 0, 0}", "Safari balls remaining label"),
+    ],
     300: [
         (256, "SWITCH", "party menu switch command"),
         (258, "SUMMARY", "party menu summary command"),

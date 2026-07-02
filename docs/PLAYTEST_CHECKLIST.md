@@ -27,6 +27,8 @@ Use this checklist before marking a phase release stable.
   order or compatibility labels.
 - Summary screen stat, Ability, PP, move Power, Accuracy, and Category labels
   are sane.
+- Battle move buttons show PP values and `PP`, not `BAIT`, `Quit`, or move
+  deletion prompt text.
 - First wild encounter does not freeze.
 - Bag item labels are sane.
 - PC storage opens and behaves as 18-box vanilla storage.
